@@ -1,0 +1,2997 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="tool">
+  <meta name="design-style" content="sticker">
+  <title>三年級音樂冒險王｜康軒三上音樂科闖關遊戲</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..900;1,9..40,400..900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Sticker style tokens */
+      --background: #fef7ff;
+      --surface-container-low: #ffffff;
+      --surface-container: #f8eef8;
+      --surface-container-high: #f2e8f2;
+
+      /* Ink */
+      --on-surface: #2e1a28;
+      --on-surface-variant: #604868;
+
+      /* Rules */
+      --outline: #907898;
+      --outline-variant: #dcc8e0;
+
+      /* Accents */
+      --primary: #c2207f;
+      --on-primary: #ffffff;
+      --primary-container: #f080c0;
+      --on-primary-container: #2e1a28;
+      --secondary: #7c52aa;
+      --on-secondary: #ffffff;
+      --secondary-container: #eadcf8;
+      --tertiary: #0096cc;
+      --tertiary-soft: #e0f5fc;
+      --error: #c53030;
+      --on-error: #ffffff;
+      --error-soft: #fde8e8;
+
+      /* Semantic & musical material tokens */
+      --positive: #15803d;
+      --positive-soft: #dcfce7;
+      --warning: #b45309;
+      --warning-soft: #fef3c7;
+      --focus: #c2207f;
+
+      --gem-1: #c2207f;
+      --gem-2: #7c52aa;
+      --gem-3: #0096cc;
+      --gem-4: #d96a00;
+      --gem-5: #15803d;
+
+      --wood: #b4692e;
+      --wood-light: #e4a86b;
+      --bamboo: #c99a49;
+      --bamboo-dark: #8c6322;
+      --steel: #6b7280;
+      --steel-light: #d1d5db;
+      --recorder-ivory: #fbf4e6;
+      --recorder-trim: #7c52aa;
+
+      /* Data series */
+      --data-1: #c2207f;
+      --data-2: #7c52aa;
+      --data-3: #0096cc;
+      --data-4: #d96a00;
+      --data-context: #c8b8d0;
+
+      /* Fonts (Non-Latin first) */
+      --font-headline: 'Noto Sans TC', 'DM Sans', sans-serif;
+      --font-body: 'Noto Sans TC', 'DM Sans', sans-serif;
+      --font-label: 'Noto Sans TC', 'DM Sans', sans-serif;
+
+      /* Type scale (Focused Tool + kid-friendly legibility) */
+      --display-size: clamp(1.875rem, 1.4rem + 2vw, 2.75rem);
+      --headline-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.75rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      --body-size: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
+      --label-size: 0.8125rem;
+
+      /* Shape */
+      --rounded: 1.25rem;
+      --rounded-lg: 2rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --shadow-pink: 0 6px 20px rgb(194 32 127 / 0.16);
+      --shadow-pink-deep: 0 10px 28px rgb(194 32 127 / 0.28);
+      --shadow-grape: 0 6px 20px rgb(124 82 170 / 0.16);
+      --shadow-sky: 0 6px 20px rgb(0 150 204 / 0.16);
+      --shadow-positive: 0 6px 20px rgb(21 128 61 / 0.18);
+      --pop-scale: scale(1.03);
+      --lift: translateY(-4px);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.25rem;
+      --space-2xl: 3.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
+    img, svg { max-width: 100%; }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Hero / Title Block */
+    .hero-panel {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 700;
+      font-size: var(--label-size);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      margin-bottom: var(--space-sm);
+    }
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: var(--display-size);
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm) 0;
+    }
+    .display em {
+      font-style: normal;
+      color: var(--primary);
+    }
+    .hero-subtitle {
+      color: var(--on-surface-variant);
+      margin: 0 0 var(--space-md) 0;
+      max-width: 58ch;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* HUD Summary Box */
+    .hud-card {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .hud-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .stat-pill {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      box-shadow: var(--shadow-grape);
+    }
+    .stat-label {
+      display: block;
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.25;
+    }
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+      padding: 3px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--tertiary);
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-long) var(--ease-bounce);
+    }
+    .gem-tray {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .gem-slot {
+      flex: 1;
+      height: 44px;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container-low);
+      border: 2px dashed var(--outline-variant);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--dur-short) var(--ease-bounce), border-color var(--dur-short);
+    }
+    .gem-slot.collected {
+      border-style: solid;
+      border-color: var(--primary);
+      box-shadow: var(--shadow-pink);
+      transform: scale(1.04);
+    }
+
+    /* Buttons & Badges */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 46px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded-full);
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover:not(:disabled) { transform: var(--pop-scale); }
+    .btn:active:not(:disabled) { transform: scale(0.97); }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-pink);
+    }
+    .btn-primary:hover:not(:disabled) { box-shadow: var(--shadow-pink-deep); }
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--on-secondary);
+      box-shadow: var(--shadow-grape);
+    }
+    .btn-soft {
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border: 2px solid var(--outline-variant);
+    }
+    .btn-soft:hover:not(:disabled) {
+      background: var(--surface-container-high);
+      border-color: var(--primary);
+    }
+    .btn-positive {
+      background: var(--positive);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-positive);
+    }
+    .btn-big-pad {
+      min-height: 68px;
+      padding: var(--space-md) var(--space-xl);
+      font-size: 1.15rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-size: var(--label-size);
+      font-weight: 700;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      border: 2px solid var(--secondary);
+      color: var(--secondary);
+      font-size: var(--label-size);
+      font-weight: 700;
+      padding: 2px var(--space-sm);
+      border-radius: var(--rounded-full);
+    }
+
+    /* Stage Map Navigation */
+    .stage-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      background: var(--surface-container-low);
+      padding: var(--space-md);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--shadow-sky);
+    }
+    .stage-pill {
+      flex: 1 1 150px;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline-variant);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  background-color var(--dur-short),
+                  border-color var(--dur-short),
+                  box-shadow var(--dur-short);
+    }
+    .stage-pill:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+    .stage-pill.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-pink);
+    }
+    .stage-pill.active .pill-sub { color: var(--on-primary); opacity: 0.9; }
+    .pill-title { display: block; font-size: 0.9375rem; line-height: 1.25; }
+    .pill-sub { display: block; font-size: 0.75rem; font-weight: 500; color: var(--on-surface-variant); }
+    .pill-stars {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* Stage Containers */
+    .stage-panel {
+      display: none;
+      gap: var(--space-lg);
+    }
+    .stage-panel.active {
+      display: grid;
+      animation: popEnter var(--dur-long) var(--ease-out);
+    }
+    @keyframes popEnter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-lg);
+    }
+    .card-sky { box-shadow: var(--shadow-sky); }
+    .card-grape { box-shadow: var(--shadow-grape); }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--headline-size);
+      margin: 0;
+      color: var(--on-surface);
+      line-height: 1.25;
+    }
+    .section-title em { font-style: normal; color: var(--primary); }
+
+    .card-title {
+      font-weight: 800;
+      font-size: var(--subhead-size);
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--on-surface);
+    }
+
+    /* Knowledge Chips Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .knowledge-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      background: var(--surface-container);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+    }
+    .knowledge-item {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      box-shadow: var(--shadow-grape);
+    }
+    .knowledge-item strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+    }
+    .knowledge-item p {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Segmented mode toggle */
+    .segmented {
+      display: inline-flex;
+      background: var(--surface-container-high);
+      padding: 4px;
+      border-radius: var(--rounded-full);
+      gap: 4px;
+    }
+    .seg-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: none;
+      background: transparent;
+      color: var(--on-surface-variant);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color var(--dur-short), color var(--dur-short), transform var(--dur-short) var(--ease-bounce);
+    }
+    .seg-btn.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-pink);
+    }
+
+    /* Feedback Banner */
+    .feedback-box {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      font-weight: 700;
+      margin-top: var(--space-md);
+    }
+    .feedback-box.success {
+      background: var(--positive-soft);
+      color: var(--positive);
+    }
+    .feedback-box.error {
+      background: var(--error-soft);
+      color: var(--error);
+    }
+    .feedback-box.warning {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    /* Stage 1: Interactive Staff & Rhythm */
+    .staff-board {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      overflow-x: auto;
+    }
+    .staff-svg {
+      width: 100%;
+      min-width: 480px;
+      height: auto;
+      display: block;
+    }
+    .staff-hit {
+      cursor: pointer;
+      transition: opacity var(--dur-micro);
+    }
+    .staff-hit:hover rect.hit-band { opacity: 0.25; }
+    .rhythm-bar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    .beat-tile {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      text-align: center;
+      border: 3px solid transparent;
+      transition: transform var(--dur-micro) var(--ease-bounce), border-color var(--dur-micro), background-color var(--dur-micro);
+    }
+    .beat-tile.now {
+      border-color: var(--primary);
+      background: var(--primary-container);
+      transform: scale(1.06);
+    }
+    .beat-tile.hit {
+      border-color: var(--positive);
+      background: var(--positive-soft);
+    }
+    .beat-symbol {
+      font-size: 2rem;
+      font-weight: 900;
+      display: block;
+      line-height: 1.2;
+    }
+    .beat-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+
+    /* Stage 2: Haydn Red Light Green Light */
+    .haydn-arena {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      position: relative;
+      transition: transform var(--dur-micro);
+    }
+    .haydn-arena.shake {
+      animation: surpriseShake 0.42s var(--ease-bounce);
+      background: var(--warning-soft);
+    }
+    @keyframes surpriseShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-10px) scale(1.02); }
+      40% { transform: translateX(10px) scale(1.02); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+    .cue-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      background: var(--surface-container-low);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-grape);
+    }
+    .cue-state {
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+    .track-lane {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-full);
+      padding: var(--space-sm) var(--space-lg);
+      position: relative;
+      height: 76px;
+      display: flex;
+      align-items: center;
+    }
+    .walker-avatar {
+      position: relative;
+      left: 0%;
+      transition: left var(--dur-short) var(--ease-bounce);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      font-weight: 800;
+      box-shadow: var(--shadow-pink);
+    }
+    .quiz-options {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-opt {
+      justify-content: flex-start;
+      text-align: left;
+      width: 100%;
+    }
+
+    /* Stage 3: Forest Ensemble */
+    .instrument-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .inst-card {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      border: 3px solid transparent;
+      transition: transform var(--dur-short) var(--ease-bounce), border-color var(--dur-short);
+    }
+    .inst-card.selected {
+      border-color: var(--primary);
+      background: var(--surface-container-low);
+      box-shadow: var(--shadow-pink);
+    }
+    .tie-slur-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .phrase-card {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      border: 3px solid var(--outline-variant);
+      cursor: pointer;
+    }
+    .phrase-card.active {
+      border-color: var(--primary);
+      background: var(--surface-container-low);
+      box-shadow: var(--shadow-pink);
+    }
+    .phrase-card.solved {
+      border-color: var(--positive);
+      background: var(--positive-soft);
+    }
+
+    /* Stage 4: Nature Orchestra */
+    .melody-steps {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      background: var(--surface-container);
+      padding: var(--space-lg);
+      border-radius: var(--rounded);
+      min-height: 180px;
+    }
+    .stair-btn {
+      flex: 1;
+      border: none;
+      border-radius: var(--rounded);
+      background: var(--secondary);
+      color: var(--on-secondary);
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: var(--space-sm);
+      box-shadow: var(--shadow-grape);
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro);
+    }
+    .stair-btn:hover { transform: var(--lift); }
+    .stair-btn.lit {
+      background: var(--primary);
+      box-shadow: var(--shadow-pink-deep);
+      transform: scale(1.06);
+    }
+    .percussion-stage {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .perc-pad {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: center;
+      text-align: center;
+    }
+    .perc-pad.cue-now {
+      background: var(--primary-container);
+      box-shadow: var(--shadow-pink-deep);
+    }
+
+    /* Stage 5: Recorder Studio */
+    .recorder-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .recorder-box {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      justify-items: center;
+      gap: var(--space-md);
+    }
+    .hole-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--rounded-full);
+      border: 4px solid var(--secondary);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro);
+    }
+    .hole-btn.closed {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-pink);
+    }
+    .hole-btn:hover { transform: var(--pop-scale); }
+    .hole-controls {
+      display: grid;
+      gap: var(--space-sm);
+      width: 100%;
+    }
+    .hole-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-container-low);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded-full);
+      gap: var(--space-sm);
+    }
+    .song-notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    .song-chip {
+      min-width: 62px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      text-align: center;
+      font-weight: 800;
+      border: 3px solid transparent;
+    }
+    .song-chip.target {
+      border-color: var(--primary);
+      background: var(--primary-container);
+      transform: scale(1.06);
+    }
+    .song-chip.done {
+      border-color: var(--positive);
+      background: var(--positive-soft);
+      color: var(--positive);
+    }
+
+    /* Stage 6: Trophy & Checklist */
+    .certificate-card {
+      background: var(--surface-container-low);
+      border: 4px solid var(--primary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-pink-deep);
+      display: grid;
+      gap: var(--space-md);
+      text-align: center;
+    }
+    .input-group {
+      display: grid;
+      gap: var(--space-xs);
+      max-width: 340px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .input-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+    .pill-input {
+      min-height: 46px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      font-weight: 700;
+    }
+    .pill-input:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-container);
+    }
+    .checklist {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      min-height: 54px;
+      font-weight: 700;
+    }
+    .check-row input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Card Wrapper Container Queries */
+    .card-wrapper { container-type: inline-size; }
+    .split-cards {
+      display: grid;
+      gap: var(--space-lg);
+      grid-template-columns: 1fr;
+    }
+    @container (min-width: 680px) {
+      .split-cards {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      }
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      padding: var(--space-md) 0 var(--space-xl) 0;
+    }
+
+    @media (max-width: 768px) {
+      .hero-panel { grid-template-columns: 1fr; padding: var(--space-lg); }
+      .recorder-layout { grid-template-columns: 1fr; }
+      .percussion-stage { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .page-grid { padding: var(--space-md); gap: var(--space-md); }
+      .rhythm-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- Hero Header & Adventure HUD -->
+    <header class="hero-panel">
+      <div>
+        <span class="hero-kicker">
+          <i data-lucide="sparkles" aria-hidden="true"></i>
+          110 學年度三上康軒版音樂冒險樂園
+        </span>
+        <h1 class="display">三年級<em>音樂冒險王</em></h1>
+        <p class="hero-subtitle">
+          歡迎來到音樂森林！跟著五個趣味關卡認識五線譜、海頓《驚愕交響曲》、清脆梆笛、打擊樂器與英式高音直笛，一邊玩一邊收集 5 顆閃亮音樂寶石！
+        </p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" onclick="unlockAndTestAudio()">
+            <i data-lucide="volume-2" aria-hidden="true"></i>
+            <span id="audio-status-label">開啟音樂魔法音效</span>
+          </button>
+          <button type="button" class="btn btn-soft" onclick="goToStage(5)">
+            <i data-lucide="award" aria-hidden="true"></i>
+            查看榮譽獎章與上課叮嚀
+          </button>
+        </div>
+      </div>
+
+      <div class="hud-card" aria-label="冒險進度看板">
+        <div class="hud-stats">
+          <div class="stat-pill">
+            <span class="stat-label">音樂寶石</span>
+            <span class="stat-value" id="hud-gems">0 / 5</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-label">星星總數</span>
+            <span class="stat-value" id="hud-stars">★ 0 / 15</span>
+          </div>
+        </div>
+        <div>
+          <span class="stat-label" style="margin-bottom: var(--space-xs);">冒險進度條</span>
+          <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" id="hud-progressbar">
+            <div class="progress-fill" id="hud-progress-fill"></div>
+          </div>
+        </div>
+        <div class="gem-tray" aria-label="五顆音樂寶石收藏槽">
+          <div class="gem-slot" id="gem-slot-0" title="第一關寶石">💎</div>
+          <div class="gem-slot" id="gem-slot-1" title="第二關寶石">🔮</div>
+          <div class="gem-slot" id="gem-slot-2" title="第三關寶石">💠</div>
+          <div class="gem-slot" id="gem-slot-3" title="第四關寶石">🧡</div>
+          <div class="gem-slot" id="gem-slot-4" title="第五關寶石">💚</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Stage Navigation Map -->
+    <nav class="stage-nav" aria-label="冒險關卡地圖">
+      <button type="button" class="stage-pill active" id="nav-stage-0" onclick="goToStage(0)">
+        <div>
+          <span class="pill-title">1. 五線譜捉迷藏</span>
+          <span class="pill-sub">向朋友說哈囉</span>
+        </div>
+        <span class="pill-stars" id="nav-stars-0">☆ 0/3</span>
+      </button>
+      <button type="button" class="stage-pill" id="nav-stage-1" onclick="goToStage(1)">
+        <div>
+          <span class="pill-title">2. 海頓木頭人</span>
+          <span class="pill-sub">找朋友玩遊戲</span>
+        </div>
+        <span class="pill-stars" id="nav-stars-1">☆ 0/3</span>
+      </button>
+      <button type="button" class="stage-pill" id="nav-stage-2" onclick="goToStage(2)">
+        <div>
+          <span class="pill-title">3. 森林動物合奏</span>
+          <span class="pill-sub">和動物一起玩</span>
+        </div>
+        <span class="pill-stars" id="nav-stars-2">☆ 0/3</span>
+      </button>
+      <button type="button" class="stage-pill" id="nav-stage-3" onclick="goToStage(3)">
+        <div>
+          <span class="pill-title">4. 大自然交響樂</span>
+          <span class="pill-sub">大自然的音樂家</span>
+        </div>
+        <span class="pill-stars" id="nav-stars-3">☆ 0/3</span>
+      </button>
+      <button type="button" class="stage-pill" id="nav-stage-4" onclick="goToStage(4)">
+        <div>
+          <span class="pill-title">5. 直笛特工隊</span>
+          <span class="pill-sub">小小愛笛生</span>
+        </div>
+        <span class="pill-stars" id="nav-stars-4">☆ 0/3</span>
+      </button>
+      <button type="button" class="stage-pill" id="nav-stage-5" onclick="goToStage(5)">
+        <div>
+          <span class="pill-title">榮譽獎章殿堂</span>
+          <span class="pill-sub">獎勵與課堂叮嚀</span>
+        </div>
+        <span class="pill-stars" id="nav-badge-status">🏆</span>
+      </button>
+    </nav>
+
+    <!-- ==================== STAGE 1 ==================== -->
+    <section class="stage-panel active" id="stage-0" aria-labelledby="s1-title">
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <span class="badge">單元：向朋友說哈囉</span>
+            <h2 class="section-title" id="s1-title">第一關：<em>五線譜</em>的捉迷藏</h2>
+          </div>
+          <span class="tag">歌曲：《說哈囉》、念謠《阿公拍電腦》</span>
+        </div>
+
+        <div class="knowledge-strip">
+          <div class="knowledge-item">
+            <strong>五線譜與高音譜號</strong>
+            <p>五線譜有「5 條線、4 個間」，要「由下往上」數！高音譜號（G 譜號）從第 2 線繞圈開始畫。</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>好朋友 Sol 音與 Mi 音</strong>
+            <p><strong>Sol</strong> 躲在五線譜的<strong>第 2 線</strong>上，<strong>Mi</strong> 躲在最下面的<strong>第 1 線</strong>上！</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>音符拍子與小節線</strong>
+            <p>四分音符（♩）走 1 拍、八分音符（♫）兩個 1 拍；小節線幫忙分好強弱拍（強-弱-次強-弱）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="split-cards">
+          <!-- Part A: Interactive Staff -->
+          <div class="card card-sky">
+            <div class="section-head">
+              <h3 class="card-title">挑戰 A：五線譜找音符（點擊線或間）</h3>
+              <div class="segmented" role="tablist" aria-label="五線譜模式切換">
+                <button type="button" class="seg-btn active" id="s1-mode-explore" onclick="setStaffMode('explore')">自由探索</button>
+                <button type="button" class="seg-btn" id="s1-mode-quiz" onclick="setStaffMode('quiz')">捉迷藏測驗</button>
+              </div>
+            </div>
+
+            <p id="s1-staff-prompt" style="margin: 0 0 var(--space-sm) 0; font-weight: 700;">
+              點點看五線譜上的各條線與間，聽聽看第 1 線 Mi 和第 2 線 Sol 的聲音！
+            </p>
+
+            <div class="staff-board">
+              <svg class="staff-svg" viewBox="0 0 560 220" role="img" aria-label="互動高音譜號五線譜">
+                <!-- Staff lines 5 down to 1 -->
+                <line x1="60" y1="40" x2="530" y2="40" stroke="var(--on-surface)" stroke-width="2.5" />
+                <line x1="60" y1="68" x2="530" y2="68" stroke="var(--on-surface)" stroke-width="2.5" />
+                <line x1="60" y1="96" x2="530" y2="96" stroke="var(--on-surface)" stroke-width="2.5" />
+                <line x1="60" y1="124" x2="530" y2="124" stroke="var(--on-surface)" stroke-width="2.5" />
+                <line x1="60" y1="152" x2="530" y2="152" stroke="var(--on-surface)" stroke-width="2.5" />
+                <!-- Bar lines -->
+                <line x1="60" y1="40" x2="60" y2="152" stroke="var(--on-surface)" stroke-width="4" />
+                <line x1="330" y1="40" x2="330" y2="152" stroke="var(--outline)" stroke-width="2" />
+                <line x1="530" y1="40" x2="530" y2="152" stroke="var(--on-surface)" stroke-width="4" />
+
+                <!-- Line numbers on left -->
+                <text x="38" y="45" font-size="12" font-weight="700" fill="var(--on-surface-variant)">第5線</text>
+                <text x="38" y="73" font-size="12" font-weight="700" fill="var(--on-surface-variant)">第4線</text>
+                <text x="38" y="101" font-size="12" font-weight="700" fill="var(--on-surface-variant)">第3線</text>
+                <text x="38" y="129" font-size="12" font-weight="700" fill="var(--primary)">第2線</text>
+                <text x="38" y="157" font-size="12" font-weight="700" fill="var(--secondary)">第1線</text>
+
+                <!-- Stylized Treble Clef centered at Line 2 (y=124) -->
+                <g transform="translate(82, 22)" fill="none" stroke="var(--primary)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M 26 112 C 12 112, 8 92, 24 84 C 38 78, 44 96, 30 104 C 14 112, 6 92, 16 74 C 24 58, 36 38, 30 16 C 26 4, 16 8, 16 24 L 22 140 C 22 152, 8 154, 8 142" />
+                  <circle cx="24" cy="102" r="5" fill="var(--primary)" stroke="none" />
+                </g>
+
+                <!-- Interactive pitch hit zones -->
+                <!-- C4 (Do - ledger line y=180) -->
+                <g class="staff-hit" onclick="clickStaffNote('Do', 180)">
+                  <rect class="hit-band" x="150" y="168" width="360" height="24" rx="12" fill="var(--tertiary)" opacity="0" />
+                  <line x1="255" y1="180" x2="305" y2="180" stroke="var(--outline)" stroke-width="2" stroke-dasharray="4 3" />
+                  <text x="485" y="185" font-size="12" font-weight="700" fill="var(--on-surface-variant)">下加一線</text>
+                </g>
+                <!-- D4 (Re - y=166) -->
+                <g class="staff-hit" onclick="clickStaffNote('Re', 166)">
+                  <rect class="hit-band" x="150" y="156" width="360" height="20" rx="10" fill="var(--tertiary)" opacity="0" />
+                </g>
+                <!-- E4 (Mi - Line 1 y=152) -->
+                <g class="staff-hit" onclick="clickStaffNote('Mi', 152)">
+                  <rect class="hit-band" x="150" y="142" width="360" height="20" rx="10" fill="var(--secondary)" opacity="0" />
+                  <circle cx="215" cy="152" r="10" fill="var(--secondary)" opacity="0.22" />
+                  <text x="215" y="156" text-anchor="middle" font-size="11" font-weight="800" fill="var(--secondary)">Mi</text>
+                </g>
+                <!-- F4 (Fa - Space 1 y=138) -->
+                <g class="staff-hit" onclick="clickStaffNote('Fa', 138)">
+                  <rect class="hit-band" x="150" y="129" width="360" height="18" rx="9" fill="var(--tertiary)" opacity="0" />
+                </g>
+                <!-- G4 (Sol - Line 2 y=124) -->
+                <g class="staff-hit" onclick="clickStaffNote('Sol', 124)">
+                  <rect class="hit-band" x="150" y="114" width="360" height="20" rx="10" fill="var(--primary)" opacity="0" />
+                  <circle cx="280" cy="124" r="10" fill="var(--primary)" opacity="0.22" />
+                  <text x="280" y="128" text-anchor="middle" font-size="11" font-weight="800" fill="var(--primary)">Sol</text>
+                </g>
+                <!-- A4 (La - Space 2 y=110) -->
+                <g class="staff-hit" onclick="clickStaffNote('La', 110)">
+                  <rect class="hit-band" x="150" y="101" width="360" height="18" rx="9" fill="var(--tertiary)" opacity="0" />
+                </g>
+                <!-- B4 (Si - Line 3 y=96) -->
+                <g class="staff-hit" onclick="clickStaffNote('Si', 96)">
+                  <rect class="hit-band" x="150" y="86" width="360" height="20" rx="10" fill="var(--tertiary)" opacity="0" />
+                </g>
+
+                <!-- Active Selected Note Marker -->
+                <g id="s1-active-note" transform="translate(380, 124)" opacity="0">
+                  <line id="s1-ledger" x1="-22" y1="0" x2="22" y2="0" stroke="var(--on-surface)" stroke-width="2.5" opacity="0" />
+                  <ellipse cx="0" cy="0" rx="13" ry="10" transform="rotate(-15)" fill="var(--primary)" />
+                  <line x1="11" y1="-2" x2="11" y2="-44" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round" />
+                  <text id="s1-note-label" x="24" y="5" font-size="15" font-weight="900" fill="var(--primary)">Sol</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="hero-actions" style="margin-top: var(--space-sm);">
+              <button type="button" class="btn btn-soft" onclick="replayStaffQuizAudio()" id="s1-replay-btn" style="display: none;">
+                <i data-lucide="headphones" aria-hidden="true"></i>
+                再聽一次題目音高
+              </button>
+              <span class="tag" id="s1-quiz-score">挑戰進度：0 / 4</span>
+            </div>
+            <div class="feedback-box" id="s1-staff-feedback">點擊五線譜試試看！由下往上數，第 1 線是 Mi，第 2 線是 Sol。</div>
+          </div>
+
+          <!-- Part B: Rhythm Drum Challenge -->
+          <div class="card card-grape">
+            <h3 class="card-title">挑戰 B：四分與八分音符節奏小鼓手</h3>
+            <p style="margin: 0; color: var(--on-surface-variant);">
+              跟著節拍燈號拍手打節奏！看到 <strong>♩（Ta）</strong> 拍 1 下，看到 <strong>♫（Ti-Ti）</strong> 輕快拍 2 下！
+            </p>
+
+            <div class="rhythm-bar" id="s1-rhythm-bar">
+              <div class="beat-tile" id="beat-0">
+                <span class="beat-symbol">♩</span>
+                <span class="beat-label">第 1 拍 (強) Ta</span>
+              </div>
+              <div class="beat-tile" id="beat-1">
+                <span class="beat-symbol">♩</span>
+                <span class="beat-label">第 2 拍 (弱) Ta</span>
+              </div>
+              <div class="beat-tile" id="beat-2">
+                <span class="beat-symbol">♫</span>
+                <span class="beat-label">第 3 拍 (次強) Ti-Ti</span>
+              </div>
+              <div class="beat-tile" id="beat-3">
+                <span class="beat-symbol">♩</span>
+                <span class="beat-label">第 4 拍 (弱) Ta</span>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <button type="button" class="btn btn-secondary" onclick="playRhythmDemo()">
+                <i data-lucide="play" aria-hidden="true"></i>
+                先聽示範節奏
+              </button>
+              <button type="button" class="btn btn-primary" id="s1-start-rhythm-btn" onclick="startRhythmChallenge()">
+                <i data-lucide="drum" aria-hidden="true"></i>
+                開始 4 拍節奏挑戰
+              </button>
+            </div>
+
+            <div style="margin-top: var(--space-md);">
+              <button type="button" class="btn btn-positive btn-big-pad" style="width: 100%;" id="s1-tap-btn" onclick="tapRhythmPad()">
+                <i data-lucide="hand" aria-hidden="true"></i>
+                拍手打節奏！（總共拍 5 下：Ta - Ta - Ti Ti - Ta）
+              </button>
+            </div>
+
+            <div class="feedback-box" id="s1-rhythm-feedback">提示：點「開始 4 拍節奏挑戰」後，跟著閃爍的格子拍打節奏！</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 2 ==================== -->
+    <section class="stage-panel" id="stage-1" aria-labelledby="s2-title">
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <span class="badge">單元：找朋友玩遊戲</span>
+            <h2 class="section-title" id="s2-title">第二關：<em>海頓先生</em>的捉迷藏木頭人</h2>
+          </div>
+          <span class="tag">歌曲：《找朋友》・欣賞：《驚愕交響曲》</span>
+        </div>
+
+        <div class="knowledge-strip">
+          <div class="knowledge-item">
+            <strong>二分音符（𝅗𝅥）＝ 2 拍</strong>
+            <p>空心的白胖子音符，唱或走的時候要拉長到 <strong>2 拍</strong>（Ta-a）才算滿拍喔！</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>四分休止符（𝄽）＝ 安靜 1 拍</strong>
+            <p>看到像閃電的休止符，嘴巴跟樂器都要<strong>完全靜音休息 1 拍</strong>！</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>音樂史：交響曲之父「海頓」</strong>
+            <p>海頓寫了《驚愕交響曲》，在輕柔音樂中突然加上超大聲「驚愕大和弦」，把打瞌睡的人嚇一跳！</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="split-cards">
+          <!-- Part A: Red Light Green Light -->
+          <div class="card card-sky">
+            <h3 class="card-title">挑戰 A：驚愕木頭人定格大挑戰</h3>
+            <p style="margin: 0 0 var(--space-md) 0; color: var(--on-surface-variant);">
+              看到「<strong>音符前進</strong>」時點按鈕往前踏步；看到「<strong>四分休止符（𝄽）</strong>」請馬上定格，千萬別按喔！小心海頓先生的突襲驚喜！
+            </p>
+
+            <div class="haydn-arena" id="s2-arena">
+              <div class="cue-banner">
+                <div>
+                  <span class="stat-label">目前節拍指令</span>
+                  <div class="cue-state" id="s2-cue-text">準備出發找朋友！</div>
+                </div>
+                <span class="badge" id="s2-step-badge">進度：0 / 8 步</span>
+              </div>
+
+              <div class="track-lane" aria-label="木頭人前進跑道">
+                <div class="walker-avatar" id="s2-walker">
+                  <span>🚶 小朋友</span>
+                </div>
+              </div>
+
+              <div class="hero-actions">
+                <button type="button" class="btn btn-primary" id="s2-start-btn" onclick="startHaydnGame()">
+                  <i data-lucide="play" aria-hidden="true"></i>
+                  開始木頭人遊戲
+                </button>
+                <button type="button" class="btn btn-positive btn-big-pad" style="flex: 1;" id="s2-walk-btn" onclick="haydnStepAction()" disabled>
+                  <i data-lucide="footprints" aria-hidden="true"></i>
+                  踏步前進！
+                </button>
+              </div>
+            </div>
+
+            <div class="feedback-box" id="s2-game-feedback">按下「開始木頭人遊戲」，聽音樂並注意休止符出現時要安靜定格！</div>
+          </div>
+
+          <!-- Part B: Surprise Symphony Quiz -->
+          <div class="card card-grape">
+            <div class="section-head">
+              <h3 class="card-title">挑戰 B：海頓與音符知識快答</h3>
+              <span class="tag" id="s2-quiz-progress">第 1 / 3 題</span>
+            </div>
+
+            <div id="s2-quiz-box">
+              <p id="s2-quiz-q" style="font-weight: 800; font-size: 1.1rem; margin-top: 0;">題目載入中…</p>
+              <div class="quiz-options" id="s2-quiz-options"></div>
+            </div>
+
+            <div class="hero-actions" style="margin-top: var(--space-md);">
+              <button type="button" class="btn btn-soft" onclick="playSurpriseDemo()">
+                <i data-lucide="zap" aria-hidden="true"></i>
+                試聽《驚愕交響曲》大小聲對比
+              </button>
+            </div>
+            <div class="feedback-box" id="s2-quiz-feedback">選出正確答案，認識二分音符、四分休止符與海頓！</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 3 ==================== -->
+    <section class="stage-panel" id="stage-2" aria-labelledby="s3-title">
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <span class="badge">單元：和動物一起玩</span>
+            <h2 class="section-title" id="s3-title">第三關：<em>森林動物</em>合奏會</h2>
+          </div>
+          <span class="tag">歌曲：《森林裡的小鳥》・欣賞：《梆笛演奏曲》</span>
+        </div>
+
+        <div class="knowledge-strip">
+          <div class="knowledge-item">
+            <strong>新朋友 Re、Fa 與附點四分音符</strong>
+            <p><strong>Re</strong> 在下加一間、<strong>Fa</strong> 在第 1 間。附點四分音符（♩.）等於 1.5 拍！</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>連結線（同音）vs 圓滑線（異音）</strong>
+            <p><strong>連結線</strong>連住「相同音高」，拍子相加唱長音；<strong>圓滑線</strong>連住「不同音高」，要唱得連貫圓滑！</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>傳統吹管樂器：梆笛</strong>
+            <p>竹製橫吹樂器，貼有薄薄的<strong>笛膜</strong>，音色特別高亢清脆，最適合模仿森林小鳥鳴叫！</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part A: Bangdi Sound & Look Identification -->
+      <div class="card card-sky">
+        <div class="section-head">
+          <h3 class="card-title">挑戰 A：找出清脆的「梆笛」小鳥樂手</h3>
+          <span class="tag" id="s3-inst-status">任務：試聽 3 種樂器，找出哪一個是梆笛！</span>
+        </div>
+
+        <div class="instrument-grid">
+          <div class="inst-card" id="inst-card-piano">
+            <svg viewBox="0 0 180 80" height="72" aria-hidden="true">
+              <rect x="20" y="14" width="140" height="52" rx="10" fill="var(--surface-container-low)" stroke="var(--on-surface)" stroke-width="3" />
+              <line x1="48" y1="14" x2="48" y2="66" stroke="var(--outline)" stroke-width="2" />
+              <line x1="76" y1="14" x2="76" y2="66" stroke="var(--outline)" stroke-width="2" />
+              <line x1="104" y1="14" x2="104" y2="66" stroke="var(--outline)" stroke-width="2" />
+              <line x1="132" y1="14" x2="132" y2="66" stroke="var(--outline)" stroke-width="2" />
+              <rect x="41" y="14" width="14" height="30" rx="4" fill="var(--on-surface)" />
+              <rect x="69" y="14" width="14" height="30" rx="4" fill="var(--on-surface)" />
+              <rect x="125" y="14" width="14" height="30" rx="4" fill="var(--on-surface)" />
+            </svg>
+            <strong>樂器 1 號：鋼琴</strong>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--on-surface-variant);">黑白琴鍵敲擊發聲，音域很寬廣。</p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-soft" onclick="playInstrumentSample('piano')">
+                <i data-lucide="volume-2" aria-hidden="true"></i> 試聽音色
+              </button>
+              <button type="button" class="btn btn-primary" onclick="chooseBangdi('piano')">選這是梆笛</button>
+            </div>
+          </div>
+
+          <div class="inst-card" id="inst-card-bangdi">
+            <svg viewBox="0 0 180 80" height="72" aria-hidden="true">
+              <rect x="14" y="30" width="152" height="20" rx="10" fill="var(--bamboo)" stroke="var(--bamboo-dark)" stroke-width="2.5" />
+              <!-- Blow hole, membrane hole, 6 finger holes -->
+              <circle cx="34" cy="40" r="4.5" fill="var(--on-surface)" />
+              <circle cx="56" cy="40" r="4.5" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" />
+              <circle cx="84" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="98" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="112" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="126" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="140" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="154" cy="40" r="3.5" fill="var(--on-surface)" />
+            </svg>
+            <strong>樂器 2 號：竹製橫吹管樂器（有笛膜）</strong>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--on-surface-variant);">竹管橫吹，粉紅圈是貼「笛膜」的膜孔！</p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-soft" onclick="playInstrumentSample('bangdi')">
+                <i data-lucide="volume-2" aria-hidden="true"></i> 試聽音色
+              </button>
+              <button type="button" class="btn btn-primary" onclick="chooseBangdi('bangdi')">選這是梆笛</button>
+            </div>
+          </div>
+
+          <div class="inst-card" id="inst-card-recorder">
+            <svg viewBox="0 0 180 80" height="72" aria-hidden="true">
+              <rect x="20" y="31" width="140" height="18" rx="9" fill="var(--recorder-ivory)" stroke="var(--recorder-trim)" stroke-width="2.5" />
+              <polygon points="10,34 26,31 26,49 10,46" fill="var(--recorder-trim)" />
+              <circle cx="64" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="80" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="96" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="112" cy="40" r="3.5" fill="var(--on-surface)" />
+              <circle cx="128" cy="40" r="3.5" fill="var(--on-surface)" />
+            </svg>
+            <strong>樂器 3 號：直笛</strong>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--on-surface-variant);">直吹木管樂器，音色圓潤柔和。</p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-soft" onclick="playInstrumentSample('recorder')">
+                <i data-lucide="volume-2" aria-hidden="true"></i> 試聽音色
+              </button>
+              <button type="button" class="btn btn-primary" onclick="chooseBangdi('recorder')">選這是梆笛</button>
+            </div>
+          </div>
+        </div>
+        <div class="feedback-box" id="s3-inst-feedback">提示：先按「試聽音色」聽聽看哪一個有清脆嘹亮、像小鳥唱歌的笛膜聲音！</div>
+      </div>
+
+      <!-- Part B: Tie vs Slur Matching -->
+      <div class="card card-grape">
+        <div class="section-head">
+          <h3 class="card-title">挑戰 B：連結線 & 圓滑線配對師</h3>
+          <span class="tag" id="s3-match-count">已配對：0 / 4</span>
+        </div>
+        <p style="margin: 0 0 var(--space-md) 0; color: var(--on-surface-variant);">
+          第 1 步：點選一張樂譜卡（也可按「試聽」聽出長音 vs 連貫差別）；第 2 步：點選下方對應的線條分類！
+        </p>
+
+        <div class="tie-slur-grid" id="s3-phrase-cards"></div>
+
+        <div class="hero-actions" style="margin-top: var(--space-md);">
+          <button type="button" class="btn btn-primary" style="flex: 1;" onclick="assignPhraseType('tie')">
+            🔗 這是「連結線」（相同音高、拍子連加）
+          </button>
+          <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="assignPhraseType('slur')">
+            🌈 這是「圓滑線」（不同音高、圓潤連貫）
+          </button>
+        </div>
+
+        <div class="feedback-box" id="s3-match-feedback">請先點選上面任一張樂譜卡片，再點選它屬於「連結線」還是「圓滑線」！</div>
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 4 ==================== -->
+    <section class="stage-panel" id="stage-3" aria-labelledby="s4-title">
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <span class="badge">單元：大自然的音樂家</span>
+            <h2 class="section-title" id="s4-title">第四關：<em>大自然</em>的交響樂團</h2>
+          </div>
+          <span class="tag">歌曲：《小星星》、《小風鈴》・欣賞：《森林狂想曲》</span>
+        </div>
+
+        <div class="knowledge-strip">
+          <div class="knowledge-item">
+            <strong>主音 Do 與終止線</strong>
+            <p><strong>Do</strong> 住在五線譜最下面的「下加一線」，像戴了小橫帽！樂曲最後有一細一粗的<strong>終止線（𝄂）</strong>。</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>旋律爬坡：上行與下行</strong>
+            <p>音高從低爬到高（Do→Sol）叫做<strong>上行</strong>；從高滑到低（Sol→Do）叫做<strong>下行</strong>。</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>三角鐵（敲與消音）＆響板</strong>
+            <p><strong>三角鐵</strong>敲下去會「叮——」長鳴，用手摸住就能立刻<strong>消音</strong>；<strong>響板</strong>拍出清脆卡嗒聲！</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="split-cards">
+          <!-- Part A: Melody Contour -->
+          <div class="card card-sky">
+            <div class="section-head">
+              <h3 class="card-title">挑戰 A：旋律爬坡大偵探（上行 / 下行）</h3>
+              <span class="tag" id="s4-melody-progress">題目：1 / 4</span>
+            </div>
+
+            <div class="melody-steps" id="s4-stairs" aria-label="互動音階樓梯 Do Re Mi Fa Sol">
+              <button type="button" class="stair-btn" style="height: 62px;" onclick="playStairNote(0)">Do<br><small>下加一線</small></button>
+              <button type="button" class="stair-btn" style="height: 82px;" onclick="playStairNote(1)">Re<br><small>下加一間</small></button>
+              <button type="button" class="stair-btn" style="height: 102px;" onclick="playStairNote(2)">Mi<br><small>第1線</small></button>
+              <button type="button" class="stair-btn" style="height: 122px;" onclick="playStairNote(3)">Fa<br><small>第1間</small></button>
+              <button type="button" class="stair-btn" style="height: 144px;" onclick="playStairNote(4)">Sol<br><small>第2線</small></button>
+            </div>
+
+            <div class="hero-actions" style="margin-top: var(--space-md);">
+              <button type="button" class="btn btn-secondary" onclick="playContourQuestion()">
+                <i data-lucide="play" aria-hidden="true"></i>
+                播放旋律爬坡題目
+              </button>
+              <button type="button" class="btn btn-primary" onclick="answerContour('up')">📈 上行（越來越高）</button>
+              <button type="button" class="btn btn-primary" onclick="answerContour('down')">📉 下行（越來越低）</button>
+            </div>
+
+            <div class="feedback-box" id="s4-melody-feedback">點「播放旋律爬坡題目」，看音階樓梯亮燈並猜猜是上行還是下行！</div>
+          </div>
+
+          <!-- Part B: Triangle & Castanet -->
+          <div class="card card-grape">
+            <div class="section-head">
+              <h3 class="card-title">挑戰 B：三角鐵 & 響板《森林狂想曲》伴奏</h3>
+              <span class="tag" id="s4-perc-score">節拍命中：0 / 6</span>
+            </div>
+            <p style="margin: 0 0 var(--space-md) 0; color: var(--on-surface-variant);">
+              自由試敲看看！尤其試試敲完三角鐵後按下「<strong>✋ 消音</strong>」讓金屬聲停下來。準備好了就開始跟著《森林狂想曲》節拍合奏吧！
+            </p>
+
+            <div class="percussion-stage">
+              <div class="perc-pad" id="pad-triangle">
+                <svg viewBox="0 0 100 90" width="84" height="76" aria-hidden="true">
+                  <polygon points="50,12 86,76 14,76" fill="none" stroke="var(--steel)" stroke-width="7" stroke-linejoin="round" />
+                  <line x1="68" y1="22" x2="92" y2="48" stroke="var(--primary)" stroke-width="5" stroke-linecap="round" />
+                </svg>
+                <strong>三角鐵</strong>
+                <div class="hero-actions">
+                  <button type="button" class="btn btn-primary" onclick="hitTriangle()">🔺 叮！敲擊</button>
+                  <button type="button" class="btn btn-soft" onclick="muteTriangle()">✋ 消音</button>
+                </div>
+              </div>
+
+              <div class="perc-pad" id="pad-castanet">
+                <svg viewBox="0 0 100 90" width="84" height="76" aria-hidden="true">
+                  <ellipse cx="50" cy="48" rx="34" ry="24" fill="var(--wood)" />
+                  <ellipse cx="50" cy="44" rx="28" ry="18" fill="var(--wood-light)" />
+                  <path d="M 32 24 Q 50 10 68 24" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linecap="round" />
+                </svg>
+                <strong>響板</strong>
+                <div class="hero-actions">
+                  <button type="button" class="btn btn-secondary" onclick="hitCastanet()">🪵 卡嗒！拍擊</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-actions" style="margin-top: var(--space-md);">
+              <button type="button" class="btn btn-positive" style="width: 100%;" id="s4-ensemble-btn" onclick="startNatureEnsemble()">
+                <i data-lucide="music" aria-hidden="true"></i>
+                開始《森林狂想曲》打擊合奏挑戰（6 拍）
+              </button>
+            </div>
+            <div class="feedback-box" id="s4-perc-feedback">提示：開始合奏後，哪一邊的樂器底色變粉紅發亮，就趕快點擊那個樂器敲擊！</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 5 ==================== -->
+    <section class="stage-panel" id="stage-4" aria-labelledby="s5-title">
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <span class="badge">單元：小小愛笛生</span>
+            <h2 class="section-title" id="s5-title">第五關：<em>直笛特工隊</em> Si-La-Sol</h2>
+          </div>
+          <span class="tag">曲目：《瑪莉有隻小綿羊》、《王老先生有塊地》・欣賞：《愛的禮讚》</span>
+        </div>
+
+        <div class="knowledge-strip">
+          <div class="knowledge-item">
+            <strong>持笛口訣：左上右下</strong>
+            <p>使用「英式高音直笛」，<strong>左手在上</strong>按 0、1、2、3 孔，<strong>右手在下</strong>托住笛身並預備下排音孔。</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>溫柔吐音（Tu）＆保養</strong>
+            <p>吹氣時舌頭輕念「<strong>Tu</strong>」，柔和穩定才會好聽；吹完要用通條布擦拭笛身內部喔！</p>
+          </div>
+          <div class="knowledge-item">
+            <strong>三大核心指法</strong>
+            <p><strong>Si（第3線）</strong>= 0,1 孔｜<strong>La（第2間）</strong>= 0,1,2 孔｜<strong>Sol（第2線）</strong>= 0,1,2,3 孔</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-sky">
+        <div class="recorder-layout">
+          <!-- Virtual Recorder Simulator -->
+          <div class="recorder-box">
+            <h3 class="card-title" style="margin: 0;">虛擬英式高音直笛</h3>
+            <span class="badge" id="s5-current-fingering">目前指法：Si 音（0, 1 孔）</span>
+
+            <svg viewBox="0 0 140 310" width="130" height="285" aria-label="英式高音直笛按孔示意圖">
+              <!-- Recorder body -->
+              <rect x="46" y="18" width="48" height="270" rx="18" fill="var(--recorder-ivory)" stroke="var(--recorder-trim)" stroke-width="4" />
+              <!-- Mouthpiece -->
+              <polygon points="52,8 88,8 94,38 46,38" fill="var(--recorder-trim)" />
+              <rect x="61" y="46" width="18" height="12" rx="4" fill="var(--on-surface)" />
+              <!-- Joint rings -->
+              <rect x="42" y="96" width="56" height="8" rx="4" fill="var(--recorder-trim)" />
+              <rect x="42" y="256" width="56" height="10" rx="4" fill="var(--recorder-trim)" />
+
+              <!-- Thumb hole 0 (back side indicator on left) -->
+              <text x="16" y="128" font-size="11" font-weight="800" fill="var(--on-surface-variant)">背0</text>
+              <circle id="svg-hole-0" cx="24" cy="144" r="12" fill="var(--primary)" stroke="var(--secondary)" stroke-width="3" style="cursor:pointer;" onclick="toggleHole(0)" />
+
+              <!-- Front holes 1, 2, 3 (Left hand) -->
+              <text x="108" y="138" font-size="11" font-weight="800" fill="var(--primary)">左手</text>
+              <circle id="svg-hole-1" cx="70" cy="136" r="11" fill="var(--primary)" stroke="var(--secondary)" stroke-width="3" style="cursor:pointer;" onclick="toggleHole(1)" />
+              <circle id="svg-hole-2" cx="70" cy="170" r="11" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="3" style="cursor:pointer;" onclick="toggleHole(2)" />
+              <circle id="svg-hole-3" cx="70" cy="204" r="11" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="3" style="cursor:pointer;" onclick="toggleHole(3)" />
+
+              <!-- Lower decorative holes (Right hand area) -->
+              <text x="108" y="236" font-size="11" font-weight="800" fill="var(--on-surface-variant)">右手</text>
+              <circle cx="70" cy="236" r="8" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="2" />
+              <circle cx="70" cy="252" r="6" fill="var(--surface-container)" stroke="var(--outline)" stroke-width="2" />
+            </svg>
+
+            <div class="hole-controls">
+              <div class="hole-row">
+                <span><strong>0 孔</strong>（左手大拇指・背後）</span>
+                <button type="button" class="hole-btn closed" id="btn-hole-0" onclick="toggleHole(0)">按住</button>
+              </div>
+              <div class="hole-row">
+                <span><strong>1 孔</strong>（左手食指）</span>
+                <button type="button" class="hole-btn closed" id="btn-hole-1" onclick="toggleHole(1)">按住</button>
+              </div>
+              <div class="hole-row">
+                <span><strong>2 孔</strong>（左手中指）</span>
+                <button type="button" class="hole-btn" id="btn-hole-2" onclick="toggleHole(2)">放開</button>
+              </div>
+              <div class="hole-row">
+                <span><strong>3 孔</strong>（左手無名指）</span>
+                <button type="button" class="hole-btn" id="btn-hole-3" onclick="toggleHole(3)">放開</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Song Challenge Area -->
+          <div style="display: grid; gap: var(--space-md);">
+            <div class="card card-grape" style="margin: 0;">
+              <h3 class="card-title">快速指法練習 & 溫柔吐音（Tu）</h3>
+              <p style="margin: 0 0 var(--space-sm) 0; color: var(--on-surface-variant);">
+                你可以手動點左邊孔洞組合，或直接點下面指法提示卡，再按大顆「吹奏 Tu」鍵！
+              </p>
+              <div class="hero-actions">
+                <button type="button" class="btn btn-soft" onclick="presetFingering('Si')">套用 Si（0,1）</button>
+                <button type="button" class="btn btn-soft" onclick="presetFingering('La')">套用 La（0,1,2）</button>
+                <button type="button" class="btn btn-soft" onclick="presetFingering('Sol')">套用 Sol（0,1,2,3）</button>
+              </div>
+              <div style="margin-top: var(--space-md);">
+                <button type="button" class="btn btn-primary btn-big-pad" style="width: 100%;" onclick="blowRecorder()">
+                  <i data-lucide="wind" aria-hidden="true"></i>
+                  溫柔吐音（Tu）吹奏！
+                </button>
+              </div>
+            </div>
+
+            <div class="card" style="margin: 0;">
+              <div class="section-head">
+                <h3 class="card-title">《瑪莉有隻小綿羊》開頭樂句闖關</h3>
+                <button type="button" class="btn btn-secondary" onclick="demoMaryHadALittleLamb()">
+                  <i data-lucide="play" aria-hidden="true"></i>
+                  示範聽這句
+                </button>
+              </div>
+              <p style="margin: 0; color: var(--on-surface-variant);">
+                依序按對每個音的直笛指法並按下「<strong>溫柔吐音（Tu）吹奏！</strong>」，讓小綿羊順利跳到草地終點！
+              </p>
+
+              <div class="song-notes" id="s5-song-notes">
+                <div class="song-chip target" id="lamb-0">1. Si<br><small>0,1</small></div>
+                <div class="song-chip" id="lamb-1">2. La<br><small>0,1,2</small></div>
+                <div class="song-chip" id="lamb-2">3. Sol<br><small>0,1,2,3</small></div>
+                <div class="song-chip" id="lamb-3">4. La<br><small>0,1,2</small></div>
+                <div class="song-chip" id="lamb-4">5. Si<br><small>0,1</small></div>
+                <div class="song-chip" id="lamb-5">6. Si<br><small>0,1</small></div>
+                <div class="song-chip" id="lamb-6">7. Si<br><small>0,1</small></div>
+              </div>
+
+              <div class="track-lane" aria-label="小綿羊前進草地">
+                <div class="walker-avatar" id="s5-lamb-walker" style="background: var(--positive);">
+                  <span>🐑 小綿羊</span>
+                </div>
+              </div>
+
+              <div class="hero-actions" style="margin-top: var(--space-sm);">
+                <button type="button" class="btn btn-soft" onclick="resetLambChallenge()">重新吹奏樂句</button>
+              </div>
+              <div class="feedback-box" id="s5-feedback">第 1 個音是 Si（按住 0 孔與 1 孔），確認指法後按下「溫柔吐音（Tu）吹奏！」</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STAGE 6: TROPHY & CHECKLIST ==================== -->
+    <section class="stage-panel" id="stage-5" aria-labelledby="s6-title">
+      <div class="certificate-card">
+        <span class="badge" style="justify-self: center;">小小音樂家榮譽殿堂</span>
+        <h2 class="section-title" id="s6-title">三年級<em>小小音樂家</em>榮譽獎章</h2>
+
+        <div style="font-size: 3.5rem; line-height: 1;" id="cert-medal-icon" aria-hidden="true">🎖️</div>
+        <p id="cert-status-text" style="font-weight: 800; font-size: 1.2rem; margin: 0;">
+          目前收集 0 / 5 顆音樂寶石，快去各關卡挑戰吧！
+        </p>
+
+        <div class="input-group">
+          <label class="input-label" for="student-name-input">輸入你的名字（將印在獎狀上）</label>
+          <input type="text" id="student-name-input" class="pill-input" maxlength="16" value="小小音樂家" oninput="updateStudentName(this.value)" />
+        </div>
+
+        <p style="margin: 0; color: var(--on-surface-variant);">
+          頒發給：<strong id="cert-student-name" style="color: var(--primary); font-size: 1.25rem;">小小音樂家</strong>｜稱號：<strong id="cert-rank-title" style="color: var(--secondary);">見習音樂探險員</strong>
+        </p>
+      </div>
+
+      <div class="card card-grape">
+        <div class="section-head">
+          <div>
+            <h3 class="card-title">黃慧慈老師的音樂課上課常規叮嚀</h3>
+            <p style="margin: 0; color: var(--on-surface-variant);">
+              成績評量包含「平時表現 40%」與「技藝學習與音樂表現 60%」。每次上課前打勾確認！
+            </p>
+          </div>
+          <span class="tag" id="checklist-count">已完成：0 / 4</span>
+        </div>
+
+        <div class="checklist">
+          <label class="check-row">
+            <input type="checkbox" id="chk-0" onchange="toggleChecklist(0, this.checked)" />
+            <span>📘 確實攜帶《康軒文教三上藝術與人文》課本</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chk-1" onchange="toggleChecklist(1, this.checked)" />
+            <span>🪈 確實攜帶「英式高音直笛」與通條布（吹完記得擦乾保養！）</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chk-2" onchange="toggleChecklist(2, this.checked)" />
+            <span>👂 上課專心聆聽音樂欣賞《驚愕交響曲》、《梆笛演奏曲》、《森林狂想曲》、《愛的禮讚》</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chk-3" onchange="toggleChecklist(3, this.checked)" />
+            <span>🌟 樂於開口歌唱與合奏，建立音樂自信心</span>
+          </label>
+        </div>
+
+        <div class="hero-actions" style="margin-top: var(--space-lg); justify-content: space-between;">
+          <button type="button" class="btn btn-soft" onclick="goToStage(0)">回到第一關繼續玩</button>
+          <button type="button" class="btn btn-soft" id="reset-all-btn" onclick="resetAllProgress(this)">重設冒險進度</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer-note">
+      資料來源：110 學年度三年級康軒版上學期音樂科教學計畫（任課教師：黃慧慈老師）｜全網頁音樂由 Web Audio API 即時合成
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* ==================== AUDIO ENGINE (WEB AUDIO API) ==================== */
+    var audioCtx = null;
+    var triangleNodes = [];
+
+    function ensureAudio() {
+      if (!audioCtx) {
+        var Ctx = window.AudioContext || window.webkitAudioContext;
+        if (Ctx) audioCtx = new Ctx();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function unlockAndTestAudio() {
+      var ctx = ensureAudio();
+      var label = document.getElementById('audio-status-label');
+      if (!ctx) {
+        if (label) label.textContent = `瀏覽器不支援音效`;
+        return;
+      }
+      playBellNote(523.25, 0.22);
+      setTimeout(function() { playBellNote(659.25, 0.25); }, 110);
+      setTimeout(function() { playBellNote(783.99, 0.35); }, 220);
+      if (label) label.textContent = `音樂魔法音效已開啟！`;
+    }
+
+    var PITCH_FREQ = {
+      Do: 261.63,
+      Re: 293.66,
+      Mi: 329.63,
+      Fa: 349.23,
+      Sol: 392.00,
+      La: 440.00,
+      Si: 493.88,
+      Do5: 523.25
+    };
+
+    function playBellNote(freq, duration, delay) {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var start = ctx.currentTime + (delay || 0);
+      var dur = duration || 0.4;
+      var osc = ctx.createOscillator();
+      var osc2 = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc2.type = 'sine';
+      osc.frequency.setValueAtTime(freq, start);
+      osc2.frequency.setValueAtTime(freq * 2, start);
+
+      gain.gain.setValueAtTime(0.001, start);
+      gain.gain.linearRampToValueAtTime(0.28, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
+
+      osc.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(start);
+      osc2.start(start);
+      osc.stop(start + dur + 0.05);
+      osc2.stop(start + dur + 0.05);
+    }
+
+    function playRecorderTone(freq, duration, delay) {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var start = ctx.currentTime + (delay || 0);
+      var dur = duration || 0.48;
+      var osc = ctx.createOscillator();
+      var harm = ctx.createOscillator();
+      var gain = ctx.createGain();
+      var harmGain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq * 2, start); /* Soprano recorder sounds 1 octave higher */
+      harm.type = 'triangle';
+      harm.frequency.setValueAtTime(freq * 4, start);
+
+      harmGain.gain.setValueAtTime(0.06, start);
+      gain.gain.setValueAtTime(0.001, start);
+      gain.gain.linearRampToValueAtTime(0.24, start + 0.04); /* gentle "Tu" attack */
+      gain.gain.setValueAtTime(0.2, start + dur * 0.7);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
+
+      osc.connect(gain);
+      harm.connect(harmGain);
+      harmGain.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(start);
+      harm.start(start);
+      osc.stop(start + dur + 0.04);
+      harm.stop(start + dur + 0.04);
+    }
+
+    function playBangdiTone(freq, duration, delay) {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var start = ctx.currentTime + (delay || 0);
+      var dur = duration || 0.4;
+      var osc = ctx.createOscillator();
+      var overtone = ctx.createOscillator();
+      var gain = ctx.createGain();
+      var overGain = ctx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(freq * 2, start);
+      overtone.type = 'sine';
+      overtone.frequency.setValueAtTime(freq * 4, start);
+
+      var filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(freq * 3.2, start);
+      filter.Q.setValueAtTime(2.5, start);
+
+      overGain.gain.setValueAtTime(0.14, start);
+      gain.gain.setValueAtTime(0.001, start);
+      gain.gain.linearRampToValueAtTime(0.25, start + 0.025);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      overtone.connect(overGain);
+      overGain.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(start);
+      overtone.start(start);
+      osc.stop(start + dur + 0.04);
+      overtone.stop(start + dur + 0.04);
+    }
+
+    function playWoodTap(high) {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(high ? 920 : 620, now);
+      osc.frequency.exponentialRampToValueAtTime(high ? 420 : 280, now + 0.07);
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    }
+
+    function playTriangleSound() {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      muteTriangle(true);
+      var now = ctx.currentTime;
+      var partials = [1840, 2790, 4120, 5630];
+      partials.forEach(function(freq, idx) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.14 / (idx + 1), now + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0008, now + 2.4);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 2.5);
+        triangleNodes.push({ osc: osc, gain: gain });
+      });
+    }
+
+    function muteTriangle(silent) {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+      triangleNodes.forEach(function(item) {
+        try {
+          item.gain.gain.cancelScheduledValues(now);
+          item.gain.gain.setValueAtTime(0.001, now);
+          item.osc.stop(now + 0.02);
+        } catch (e) {}
+      });
+      triangleNodes = [];
+      if (!silent) {
+        var fb = document.getElementById('s4-perc-feedback');
+        if (fb) {
+          fb.className = 'feedback-box';
+          fb.textContent = `✋ 已用手觸碰三角鐵「消音」，嗡嗡聲立刻安靜下來囉！`;
+        }
+      }
+    }
+
+    function playCastanetSound() {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+      /* Crisp double wood click */
+      [0, 0.045].forEach(function(offset) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1150, now + offset);
+        osc.frequency.exponentialRampToValueAtTime(340, now + offset + 0.055);
+        gain.gain.setValueAtTime(0.38, now + offset);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.06);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + offset);
+        osc.stop(now + offset + 0.07);
+      });
+    }
+
+    function playSuccessChime() {
+      playBellNote(523.25, 0.16, 0);
+      playBellNote(659.25, 0.16, 0.09);
+      playBellNote(783.99, 0.28, 0.18);
+    }
+
+    function playErrorBoop() {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(185, now);
+      osc.frequency.linearRampToValueAtTime(140, now + 0.22);
+      gain.gain.setValueAtTime(0.14, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.28);
+    }
+
+    function playSurpriseChord() {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+      var chord = [196.00, 293.66, 392.00, 493.88, 587.33];
+      chord.forEach(function(f) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(f, now);
+        var filt = ctx.createBiquadFilter();
+        filt.type = 'lowpass';
+        filt.frequency.setValueAtTime(2400, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.18, now + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+        osc.connect(filt);
+        filt.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.7);
+      });
+    }
+
+    /* ==================== APP STATE & PERSISTENCE ==================== */
+    var appState = {
+      currentStage: 0,
+      stars: [0, 0, 0, 0, 0],
+      gems: [false, false, false, false, false],
+      studentName: `小小音樂家`,
+      checklist: [false, false, false, false]
+    };
+
+    var stageSubDone = {
+      s1Staff: false,
+      s1Rhythm: false,
+      s2Game: false,
+      s2Quiz: false,
+      s3Inst: false,
+      s3Match: false,
+      s4Melody: false,
+      s4Perc: false,
+      s5Lamb: false
+    };
+
+    function saveAppState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        window.notebookAppApi.setAppState(appState);
+      }
+    }
+
+    function awardStageProgress(stageIdx, partKey) {
+      if (partKey) stageSubDone[partKey] = true;
+      var newStars = appState.stars[stageIdx] || 0;
+
+      if (stageIdx === 0) {
+        if (stageSubDone.s1Staff && stageSubDone.s1Rhythm) newStars = 3;
+        else if (stageSubDone.s1Staff || stageSubDone.s1Rhythm) newStars = Math.max(newStars, 2);
+      } else if (stageIdx === 1) {
+        if (stageSubDone.s2Game && stageSubDone.s2Quiz) newStars = 3;
+        else if (stageSubDone.s2Game || stageSubDone.s2Quiz) newStars = Math.max(newStars, 2);
+      } else if (stageIdx === 2) {
+        if (stageSubDone.s3Inst && stageSubDone.s3Match) newStars = 3;
+        else if (stageSubDone.s3Inst || stageSubDone.s3Match) newStars = Math.max(newStars, 2);
+      } else if (stageIdx === 3) {
+        if (stageSubDone.s4Melody && stageSubDone.s4Perc) newStars = 3;
+        else if (stageSubDone.s4Melody || stageSubDone.s4Perc) newStars = Math.max(newStars, 2);
+      } else if (stageIdx === 4) {
+        if (stageSubDone.s5Lamb) newStars = 3;
+      }
+
+      if (newStars > appState.stars[stageIdx]) {
+        appState.stars[stageIdx] = newStars;
+      }
+      if (appState.stars[stageIdx] >= 2) {
+        appState.gems[stageIdx] = true;
+      }
+      renderHUD();
+      saveAppState();
+    }
+
+    function renderHUD() {
+      var totalGems = appState.gems.filter(Boolean).length;
+      var totalStars = appState.stars.reduce(function(a, b) { return a + b; }, 0);
+
+      var hudGems = document.getElementById('hud-gems');
+      var hudStars = document.getElementById('hud-stars');
+      var bar = document.getElementById('hud-progressbar');
+      var fill = document.getElementById('hud-progress-fill');
+
+      if (hudGems) hudGems.textContent = `${totalGems} / 5`;
+      if (hudStars) hudStars.textContent = `★ ${totalStars} / 15`;
+      if (bar) bar.setAttribute('aria-valuenow', String(totalGems));
+      if (fill) fill.style.width = `${(totalGems / 5) * 100}%`;
+
+      for (var i = 0; i < 5; i++) {
+        var slot = document.getElementById(`gem-slot-${i}`);
+        if (slot) {
+          if (appState.gems[i]) slot.classList.add('collected');
+          else slot.classList.remove('collected');
+        }
+        var navStars = document.getElementById(`nav-stars-${i}`);
+        if (navStars) {
+          var s = appState.stars[i] || 0;
+          navStars.textContent = `${s > 0 ? '★' : '☆'} ${s}/3`;
+        }
+      }
+
+      /* Certificate section */
+      var certText = document.getElementById('cert-status-text');
+      var certRank = document.getElementById('cert-rank-title');
+      var certIcon = document.getElementById('cert-medal-icon');
+      var certName = document.getElementById('cert-student-name');
+      var nameInput = document.getElementById('student-name-input');
+
+      if (certName) certName.textContent = appState.studentName || `小小音樂家`;
+      if (nameInput && nameInput.value !== appState.studentName) {
+        nameInput.value = appState.studentName;
+      }
+
+      if (certText && certRank && certIcon) {
+        if (totalGems === 5) {
+          certIcon.textContent = `👑`;
+          certText.textContent = `太厲害了！你已集齊全部 5 顆音樂寶石（共 ${totalStars} 顆星）！`;
+          certRank.textContent = `三年級音樂冒險王`;
+        } else if (totalGems >= 3) {
+          certIcon.textContent = `🥇`;
+          certText.textContent = `好棒！已收集 ${totalGems} / 5 顆音樂寶石（共 ${totalStars} 顆星），加油收集全部！`;
+          certRank.textContent = `森林小小愛笛生`;
+        } else {
+          certIcon.textContent = `🎖️`;
+          certText.textContent = `目前收集 ${totalGems} / 5 顆音樂寶石（共 ${totalStars} 顆星），快去關卡挑戰吧！`;
+          certRank.textContent = `見習音樂探險員`;
+        }
+      }
+
+      /* Checklist */
+      var checkedCount = 0;
+      for (var c = 0; c < 4; c++) {
+        var chk = document.getElementById(`chk-${c}`);
+        if (chk) chk.checked = Boolean(appState.checklist[c]);
+        if (appState.checklist[c]) checkedCount++;
+      }
+      var chkLabel = document.getElementById('checklist-count');
+      if (chkLabel) chkLabel.textContent = `已完成：${checkedCount} / 4`;
+    }
+
+    function goToStage(idx) {
+      appState.currentStage = idx;
+      for (var i = 0; i < 6; i++) {
+        var panel = document.getElementById(`stage-${i}`);
+        var pill = document.getElementById(`nav-stage-${i}`);
+        if (panel) {
+          if (i === idx) panel.classList.add('active');
+          else panel.classList.remove('active');
+        }
+        if (pill) {
+          if (i === idx) pill.classList.add('active');
+          else pill.classList.remove('active');
+        }
+      }
+      saveAppState();
+    }
+
+    function updateStudentName(val) {
+      appState.studentName = val.trim() ? val : `小小音樂家`;
+      var certName = document.getElementById('cert-student-name');
+      if (certName) certName.textContent = appState.studentName;
+      saveAppState();
+    }
+
+    function toggleChecklist(idx, isChecked) {
+      appState.checklist[idx] = isChecked;
+      if (isChecked) playSuccessChime();
+      renderHUD();
+      saveAppState();
+    }
+
+    function resetAllProgress(btn) {
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `再點一次確認重設所有進度`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = `重設冒險進度`;
+      appState.stars = [0, 0, 0, 0, 0];
+      appState.gems = [false, false, false, false, false];
+      appState.checklist = [false, false, false, false];
+      Object.keys(stageSubDone).forEach(function(k) { stageSubDone[k] = false; });
+      renderHUD();
+      saveAppState();
+    }
+
+    /* ==================== STAGE 1 LOGIC ==================== */
+    var s1Mode = 'explore';
+    var s1QuizQuestions = [
+      { target: 'Sol', prompt: `第 1 題：請點出躲在「第 2 線」的 Sol 音！` },
+      { target: 'Mi', prompt: `第 2 題：請點出躲在「第 1 線」的 Mi 音！` },
+      { target: 'Sol', prompt: `第 3 題：高音譜號繞圈開始的那一條線是哪個音？請點出來！`, playAudio: true },
+      { target: 'Mi', prompt: `第 4 題：聽聽看這個音，點出「Mi 音」在五線譜的位置！`, playAudio: true }
+    ];
+    var s1QuizIdx = 0;
+
+    function setStaffMode(mode) {
+      s1Mode = mode;
+      var btnExp = document.getElementById('s1-mode-explore');
+      var btnQuiz = document.getElementById('s1-mode-quiz');
+      var replayBtn = document.getElementById('s1-replay-btn');
+      var promptEl = document.getElementById('s1-staff-prompt');
+      var fb = document.getElementById('s1-staff-feedback');
+
+      if (btnExp) btnExp.classList.toggle('active', mode === 'explore');
+      if (btnQuiz) btnQuiz.classList.toggle('active', mode === 'quiz');
+
+      if (mode === 'explore') {
+        if (replayBtn) replayBtn.style.display = 'none';
+        if (promptEl) promptEl.textContent = `點點看五線譜上的各條線與間，聽聽看第 1 線 Mi 和第 2 線 Sol 的聲音！`;
+        if (fb) {
+          fb.className = 'feedback-box';
+          fb.textContent = `自由探索中：點擊五線譜任意位置會發出對應音高喔！`;
+        }
+      } else {
+        s1QuizIdx = 0;
+        updateStaffQuizPrompt();
+      }
+    }
+
+    function updateStaffQuizPrompt() {
+      var promptEl = document.getElementById('s1-staff-prompt');
+      var replayBtn = document.getElementById('s1-replay-btn');
+      var scoreEl = document.getElementById('s1-quiz-score');
+      var fb = document.getElementById('s1-staff-feedback');
+      var q = s1QuizQuestions[s1QuizIdx];
+      if (!q) return;
+      if (promptEl) promptEl.textContent = q.prompt;
+      if (replayBtn) replayBtn.style.display = 'inline-flex';
+      if (scoreEl) scoreEl.textContent = `挑戰進度：${s1QuizIdx} / 4`;
+      if (fb) {
+        fb.className = 'feedback-box';
+        fb.textContent = `請在五線譜上點出正確的那一條線！`;
+      }
+      if (q.playAudio) playBellNote(PITCH_FREQ[q.target], 0.5);
+    }
+
+    function replayStaffQuizAudio() {
+      var q = s1QuizQuestions[s1QuizIdx];
+      if (q) playBellNote(PITCH_FREQ[q.target], 0.5);
+    }
+
+    function clickStaffNote(noteName, yPos) {
+      var marker = document.getElementById('s1-active-note');
+      var label = document.getElementById('s1-note-label');
+      var ledger = document.getElementById('s1-ledger');
+      var fb = document.getElementById('s1-staff-feedback');
+
+      playBellNote(PITCH_FREQ[noteName], 0.45);
+      if (marker) {
+        marker.setAttribute('transform', `translate(380, ${yPos})`);
+        marker.setAttribute('opacity', '1');
+      }
+      if (label) label.textContent = noteName;
+      if (ledger) ledger.setAttribute('opacity', noteName === 'Do' ? '1' : '0');
+
+      var posDesc = {
+        Do: `下加一線`,
+        Re: `下加一間`,
+        Mi: `第 1 線`,
+        Fa: `第 1 間`,
+        Sol: `第 2 線`,
+        La: `第 2 間`,
+        Si: `第 3 線`
+      };
+
+      if (s1Mode === 'explore') {
+        if (fb) {
+          fb.className = 'feedback-box';
+          fb.textContent = `你點到了「${noteName} 音」，位置在「${posDesc[noteName]}」！`;
+        }
+        return;
+      }
+
+      var q = s1QuizQuestions[s1QuizIdx];
+      if (!q) return;
+      if (noteName === q.target) {
+        playSuccessChime();
+        s1QuizIdx++;
+        var scoreEl = document.getElementById('s1-quiz-score');
+        if (s1QuizIdx >= s1QuizQuestions.length) {
+          if (scoreEl) scoreEl.textContent = `挑戰進度：4 / 4`;
+          if (fb) {
+            fb.className = 'feedback-box success';
+            fb.textContent = `🎉 太棒了！你完全認識第 1 線 Mi 和第 2 線 Sol 囉！快去試試右邊的節奏挑戰吧！`;
+          }
+          awardStageProgress(0, 's1Staff');
+          s1QuizIdx = 0;
+        } else {
+          if (fb) {
+            fb.className = 'feedback-box success';
+            fb.textContent = `⭕ 答對了！這就是「${posDesc[noteName]}」的 ${noteName} 音！準備下一題…`;
+          }
+          setTimeout(updateStaffQuizPrompt, 950);
+        }
+      } else {
+        playErrorBoop();
+        if (fb) {
+          fb.className = 'feedback-box error';
+          fb.textContent = `剛剛點到的是 ${noteName}（${posDesc[noteName]}）喔！數數看：由下往上第 1 線是 Mi、第 2 線是 Sol。`;
+        }
+      }
+    }
+
+    /* Stage 1B: Rhythm */
+    var s1RhythmActive = false;
+    var s1TapCount = 0;
+    var s1RhythmTimers = [];
+
+    function clearRhythmTimers() {
+      s1RhythmTimers.forEach(function(id) { clearTimeout(id); });
+      s1RhythmTimers = [];
+      for (var i = 0; i < 4; i++) {
+        var tile = document.getElementById(`beat-${i}`);
+        if (tile) tile.classList.remove('now', 'hit');
+      }
+    }
+
+    function playRhythmDemo() {
+      clearRhythmTimers();
+      /* Pattern: Beat 0 (0ms), Beat 1 (550ms), Beat 2 (1100ms & 1375ms), Beat 3 (1650ms) */
+      var hits = [
+        { time: 0, tile: 0, high: true },
+        { time: 550, tile: 1, high: false },
+        { time: 1100, tile: 2, high: true },
+        { time: 1375, tile: 2, high: false },
+        { time: 1650, tile: 3, high: false }
+      ];
+      hits.forEach(function(h) {
+        s1RhythmTimers.push(setTimeout(function() {
+          for (var i = 0; i < 4; i++) {
+            var t = document.getElementById(`beat-${i}`);
+            if (t) t.classList.toggle('now', i === h.tile);
+          }
+          playWoodTap(h.high);
+        }, h.time));
+      });
+      s1RhythmTimers.push(setTimeout(clearRhythmTimers, 2200));
+    }
+
+    function startRhythmChallenge() {
+      clearRhythmTimers();
+      s1RhythmActive = true;
+      s1TapCount = 0;
+      var fb = document.getElementById('s1-rhythm-feedback');
+      if (fb) {
+        fb.className = 'feedback-box warning';
+        fb.textContent = `🥁 節奏挑戰開始！請跟著亮起的拍子，依序拍出「Ta - Ta - Ti Ti - Ta」共 5 下！`;
+      }
+      var first = document.getElementById('beat-0');
+      if (first) first.classList.add('now');
+    }
+
+    function tapRhythmPad() {
+      playWoodTap(s1TapCount === 0 || s1TapCount === 2);
+      var fb = document.getElementById('s1-rhythm-feedback');
+      if (!s1RhythmActive) {
+        if (fb) {
+          fb.className = 'feedback-box';
+          fb.textContent = `拍手聲響起來囉！按下「開始 4 拍節奏挑戰」就能累積過關星星！`;
+        }
+        return;
+      }
+
+      var mapTile = [0, 1, 2, 2, 3];
+      var labels = [`第 1 拍 Ta！`, `第 2 拍 Ta！`, `第 3 拍 Ti-`, `第 3 拍 -Ti！`, `第 4 拍 Ta！`];
+      var curTileIdx = mapTile[s1TapCount];
+      var curTile = document.getElementById(`beat-${curTileIdx}`);
+      if (curTile) curTile.classList.add('hit');
+
+      s1TapCount++;
+      if (s1TapCount >= 5) {
+        s1RhythmActive = false;
+        playSuccessChime();
+        if (fb) {
+          fb.className = 'feedback-box success';
+          fb.textContent = `🎉 節奏超穩！你已經學會四分音符（♩）與八分音符（♫）囉！獲得第一關音樂寶石！`;
+        }
+        awardStageProgress(0, 's1Rhythm');
+      } else {
+        var nextTileIdx = mapTile[s1TapCount];
+        for (var i = 0; i < 4; i++) {
+          var t = document.getElementById(`beat-${i}`);
+          if (t) t.classList.toggle('now', i === nextTileIdx);
+        }
+        if (fb) {
+          fb.className = 'feedback-box';
+          fb.textContent = `很棒！剛剛拍了「${labels[s1TapCount - 1]}」繼續完成下一拍（${s1TapCount} / 5）`;
+        }
+      }
+    }
+
+    /* ==================== STAGE 2 LOGIC ==================== */
+    var s2Running = false;
+    var s2Timer = null;
+    var s2Phase = 'idle'; /* 'walk', 'rest', 'surprise' */
+    var s2Progress = 0;
+    var s2TickCount = 0;
+
+    function startHaydnGame() {
+      if (s2Timer) clearInterval(s2Timer);
+      s2Running = true;
+      s2Progress = 0;
+      s2TickCount = 0;
+      var walkBtn = document.getElementById('s2-walk-btn');
+      var walker = document.getElementById('s2-walker');
+      var stepBadge = document.getElementById('s2-step-badge');
+      var fb = document.getElementById('s2-game-feedback');
+      var arena = document.getElementById('s2-arena');
+
+      if (arena) arena.classList.remove('shake');
+      if (walkBtn) walkBtn.disabled = false;
+      if (walker) walker.style.left = `0%`;
+      if (stepBadge) stepBadge.textContent = `進度：0 / 8 步`;
+      if (fb) {
+        fb.className = 'feedback-box';
+        fb.textContent = `🎵 輕巧音樂開始了！看到音符就按「踏步前進！」，看到休止符（𝄽）立刻停手！`;
+      }
+
+      runHaydnCue();
+      s2Timer = setInterval(runHaydnCue, 1800);
+    }
+
+    function runHaydnCue() {
+      if (!s2Running) return;
+      s2TickCount++;
+      var cueText = document.getElementById('s2-cue-text');
+      var arena = document.getElementById('s2-arena');
+
+      /* Every 3rd tick is a rest; tick 5 triggers Surprise Chord */
+      if (s2TickCount === 5) {
+        s2Phase = 'rest';
+        playSurpriseChord();
+        if (arena) {
+          arena.classList.remove('shake');
+          void arena.offsetWidth;
+          arena.classList.add('shake');
+        }
+        if (cueText) cueText.textContent = `💥 驚愕大和弦（ff）＋ 休止符 𝄽！快定格別動！`;
+        return;
+      }
+
+      if (s2TickCount % 3 === 0) {
+        s2Phase = 'rest';
+        if (cueText) cueText.textContent = `🤫 四分休止符（𝄽）！安靜 1 拍—定格！`;
+      } else {
+        s2Phase = 'walk';
+        var isHalf = s2TickCount % 2 === 0;
+        playBellNote(isHalf ? 392.00 : 329.63, isHalf ? 0.65 : 0.32);
+        if (cueText) {
+          cueText.textContent = isHalf ? `🎵 二分音符（𝅗𝅥 2 拍）！可以踏步前進！` : `🎵 四分音符（♩ 1 拍）！輕快踏步前進！`;
+        }
+      }
+    }
+
+    function haydnStepAction() {
+      if (!s2Running) return;
+      var fb = document.getElementById('s2-game-feedback');
+      var walker = document.getElementById('s2-walker');
+      var stepBadge = document.getElementById('s2-step-badge');
+
+      if (s2Phase === 'rest') {
+        playErrorBoop();
+        s2Progress = Math.max(0, s2Progress - 1);
+        if (walker) walker.style.left = `${(s2Progress / 8) * 76}%`;
+        if (stepBadge) stepBadge.textContent = `進度：${s2Progress} / 8 步`;
+        if (fb) {
+          fb.className = 'feedback-box error';
+          fb.textContent = `哎呀！現在是「四分休止符」要安靜定格，被海頓先生抓到偷動退後 1 步囉！`;
+        }
+        return;
+      }
+
+      playWoodTap(true);
+      s2Progress++;
+      if (walker) walker.style.left = `${(s2Progress / 8) * 76}%`;
+      if (stepBadge) stepBadge.textContent = `進度：${s2Progress} / 8 步`;
+
+      if (s2Progress >= 8) {
+        s2Running = false;
+        clearInterval(s2Timer);
+        var walkBtn = document.getElementById('s2-walk-btn');
+        var cueText = document.getElementById('s2-cue-text');
+        if (walkBtn) walkBtn.disabled = true;
+        if (cueText) cueText.textContent = `🏁 成功找到好朋友了！`;
+        playSuccessChime();
+        if (fb) {
+          fb.className = 'feedback-box success';
+          fb.textContent = `🎉 太厲害了！你成功完成海頓木頭人定格大挑戰！`;
+        }
+        awardStageProgress(1, 's2Game');
+      } else if (fb) {
+        fb.className = 'feedback-box';
+        fb.textContent = `很棒！穩穩往前踏了第 ${s2Progress} 步，繼續注意休止符喔！`;
+      }
+    }
+
+    function playSurpriseDemo() {
+      /* Soft theme (pp) then loud Surprise chord (ff) */
+      playBellNote(261.63, 0.35, 0);
+      playBellNote(261.63, 0.35, 0.4);
+      playBellNote(329.63, 0.35, 0.8);
+      playBellNote(329.63, 0.35, 1.2);
+      playBellNote(392.00, 0.35, 1.6);
+      setTimeout(function() {
+        playSurpriseChord();
+        var arena = document.getElementById('s2-arena');
+        if (arena) {
+          arena.classList.remove('shake');
+          void arena.offsetWidth;
+          arena.classList.add('shake');
+        }
+      }, 2150);
+    }
+
+    /* Stage 2B: Quiz */
+    var s2Questions = [
+      {
+        q: `1. 「二分音符（𝅗𝅥）」表示要唱或演奏滿幾拍呢？`,
+        opts: [`1 拍`, `2 拍`, `安靜不出聲`],
+        ans: 1
+      },
+      {
+        q: `2. 樂譜上像閃電一樣的「四分休止符（𝄽）」代表什麼意思？`,
+        opts: [`大聲喊出來`, `安靜休息 1 拍不出聲音`, `拍手兩下`],
+        ans: 1
+      },
+      {
+        q: `3. 寫出《驚愕交響曲》，被稱為「交響曲之父」的音樂家是誰？`,
+        opts: [`海頓`, `莫札特`, `貝多芬`],
+        ans: 0
+      }
+    ];
+    var s2QuizIdx = 0;
+
+    function renderS2Quiz() {
+      var prog = document.getElementById('s2-quiz-progress');
+      var qEl = document.getElementById('s2-quiz-q');
+      var optsEl = document.getElementById('s2-quiz-options');
+      var q = s2Questions[s2QuizIdx];
+      if (!q || !qEl || !optsEl) return;
+
+      if (prog) prog.textContent = `第 ${s2QuizIdx + 1} / ${s2Questions.length} 題`;
+      qEl.textContent = q.q;
+      optsEl.innerHTML = '';
+      q.opts.forEach(function(optText, idx) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-soft quiz-opt';
+        btn.textContent = optText;
+        btn.onclick = function() { answerS2Quiz(idx); };
+        optsEl.appendChild(btn);
+      });
+    }
+
+    function answerS2Quiz(choiceIdx) {
+      var q = s2Questions[s2QuizIdx];
+      var fb = document.getElementById('s2-quiz-feedback');
+      if (!q) return;
+
+      if (choiceIdx === q.ans) {
+        playSuccessChime();
+        s2QuizIdx++;
+        if (s2QuizIdx >= s2Questions.length) {
+          if (fb) {
+            fb.className = 'feedback-box success';
+            fb.textContent = `🎉 全部答對！你已經是海頓與節奏小達人囉！`;
+          }
+          awardStageProgress(1, 's2Quiz');
+          s2QuizIdx = 0;
+          setTimeout(renderS2Quiz, 1200);
+        } else {
+          if (fb) {
+            fb.className = 'feedback-box success';
+            fb.textContent = `⭕ 答對了！我們來看看下一題！`;
+          }
+          setTimeout(renderS2Quiz, 750);
+        }
+      } else {
+        playErrorBoop();
+        if (fb) {
+          fb.className = 'feedback-box error';
+          fb.textContent = `再想一下喔！可以看看上方知識小卡片的提示再選一次！`;
+        }
+      }
+    }
+
+    /* ==================== STAGE 3 LOGIC ==================== */
+    function playInstrumentSample(type) {
+      var notes = [392.00, 440.00, 523.25, 392.00];
+      notes.forEach(function(freq, idx) {
+        var delay = idx * 0.25;
+        if (type === 'piano') playBellNote(freq, 0.35, delay);
+        else if (type === 'bangdi') playBangdiTone(freq, 0.22, delay);
+        else playRecorderTone(freq, 0.32, delay);
+      });
+    }
+
+    function chooseBangdi(type) {
+      var fb = document.getElementById('s3-inst-feedback');
+      var cards = ['piano', 'bangdi', 'recorder'];
+      cards.forEach(function(c) {
+        var el = document.getElementById(`inst-card-${c}`);
+        if (el) el.classList.toggle('selected', c === type);
+      });
+
+      if (type === 'bangdi') {
+        playSuccessChime();
+        if (fb) {
+          fb.className = 'feedback-box success';
+          fb.textContent = `⭕ 答對了！就是有竹管和粉紅色「笛膜」的梆笛！音色清脆又嘹亮，像小鳥在唱歌！`;
+        }
+        awardStageProgress(2, 's3Inst');
+      } else {
+        playErrorBoop();
+        if (fb) {
+          fb.className = 'feedback-box error';
+          fb.textContent = type === 'piano'
+            ? `這是黑白琴鍵的「鋼琴」喔！找找看橫著吹、有貼笛膜的竹管樂器！`
+            : `這是直吹的「直笛」，音色比較柔和喔！梆笛是「橫吹」且有膜孔的竹笛！`;
+        }
+      }
+    }
+
+    var s3Phrases = [
+      { id: 0, title: `樂譜卡 1`, desc: `Mi ─ Mi（同音高弧線相連）`, notes: ['Mi', 'Mi'], type: 'tie', solved: false },
+      { id: 1, title: `樂譜卡 2`, desc: `Re ⌒ Fa（不同音高弧線相連）`, notes: ['Re', 'Fa'], type: 'slur', solved: false },
+      { id: 2, title: `樂譜卡 3`, desc: `Sol ─ Sol（同音高拍子相加）`, notes: ['Sol', 'Sol'], type: 'tie', solved: false },
+      { id: 3, title: `樂譜卡 4`, desc: `Fa ⌒ Mi（不同音高滑順連貫）`, notes: ['Fa', 'Mi'], type: 'slur', solved: false }
+    ];
+    var s3SelectedId = null;
+
+    function renderS3Phrases() {
+      var grid = document.getElementById('s3-phrase-cards');
+      var countEl = document.getElementById('s3-match-count');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      var solvedCount = 0;
+      s3Phrases.forEach(function(p) {
+        if (p.solved) solvedCount++;
+        var card = document.createElement('div');
+        card.className = 'phrase-card' + (s3SelectedId === p.id ? ' active' : '') + (p.solved ? ' solved' : '');
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.onclick = function() { selectPhraseCard(p.id); };
+        card.onkeydown = function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectPhraseCard(p.id);
+          }
+        };
+
+        var y1 = p.notes[0] === 'Re' ? 52 : p.notes[0] === 'Mi' ? 44 : p.notes[0] === 'Fa' ? 36 : 28;
+        var y2 = p.notes[1] === 'Re' ? 52 : p.notes[1] === 'Mi' ? 44 : p.notes[1] === 'Fa' ? 36 : 28;
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>${p.title}${p.solved ? ' ✅' : ''}</strong>
+            <button type="button" class="btn btn-soft" style="min-height:36px; padding:4px 12px;" onclick="event.stopPropagation(); playPhraseDemo(${p.id});">🔊 試聽</button>
+          </div>
+          <svg viewBox="0 0 180 64" height="58" aria-hidden="true">
+            <line x1="12" y1="28" x2="168" y2="28" stroke="var(--outline)" stroke-width="1.5" />
+            <line x1="12" y1="44" x2="168" y2="44" stroke="var(--outline)" stroke-width="1.5" />
+            <circle cx="54" cy="${y1}" r="8" fill="var(--primary)" />
+            <circle cx="126" cy="${y2}" r="8" fill="var(--secondary)" />
+            <path d="M 54 ${y1 + 12} Q 90 ${Math.max(y1, y2) + 26} 126 ${y2 + 12}" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" />
+          </svg>
+          <span style="font-size:0.9rem; font-weight:700; color:var(--on-surface-variant);">${p.desc}</span>
+        `;
+        grid.appendChild(card);
+      });
+
+      if (countEl) countEl.textContent = `已配對：${solvedCount} / 4`;
+    }
+
+    function selectPhraseCard(id) {
+      s3SelectedId = id;
+      renderS3Phrases();
+      playPhraseDemo(id);
+    }
+
+    function playPhraseDemo(id) {
+      var p = s3Phrases[id];
+      if (!p) return;
+      if (p.type === 'tie') {
+        /* Same pitch held continuously */
+        playBellNote(PITCH_FREQ[p.notes[0]], 0.9, 0);
+      } else {
+        /* Different pitches smoothly connected */
+        playBellNote(PITCH_FREQ[p.notes[0]], 0.4, 0);
+        playBellNote(PITCH_FREQ[p.notes[1]], 0.45, 0.35);
+      }
+    }
+
+    function assignPhraseType(chosenType) {
+      var fb = document.getElementById('s3-match-feedback');
+      if (s3SelectedId === null) {
+        if (fb) {
+          fb.className = 'feedback-box warning';
+          fb.textContent = `請先點選上面其中一張「樂譜卡」，再按下連結線或圓滑線分類！`;
+        }
+        return;
+      }
+      var p = s3Phrases[s3SelectedId];
+      if (!p) return;
+
+      if (p.type === chosenType) {
+        p.solved = true;
+        playSuccessChime();
+        s3SelectedId = null;
+        renderS3Phrases();
+
+        var allDone = s3Phrases.every(function(item) { return item.solved; });
+        if (allDone) {
+          if (fb) {
+            fb.className = 'feedback-box success';
+            fb.textContent = `🎉 全部配對成功！同音相加是「連結線」，異音連貫是「圓滑線」！`;
+          }
+          awardStageProgress(2, 's3Match');
+        } else if (fb) {
+          fb.className = 'feedback-box success';
+          fb.textContent = `⭕ 答對了！請繼續選下一張還沒配對的樂譜卡！`;
+        }
+      } else {
+        playErrorBoop();
+        if (fb) {
+          fb.className = 'feedback-box error';
+          fb.textContent = `仔細看兩個音符的高低位置喔！相同音高才是連結線，一高一低不同音高是圓滑線！`;
+        }
+      }
+    }
+
+    /* ==================== STAGE 4 LOGIC ==================== */
+    var STAIR_NOTES = ['Do', 'Re', 'Mi', 'Fa', 'Sol'];
+    var s4ContourQuestions = [
+      { seq: [0, 1, 2, 3, 4], dir: 'up' },
+      { seq: [4, 3, 2, 1, 0], dir: 'down' },
+      { seq: [0, 2, 4], dir: 'up' },
+      { seq: [4, 2, 0], dir: 'down' }
+    ];
+    var s4ContourIdx = 0;
+
+    function playStairNote(idx) {
+      var note = STAIR_NOTES[idx];
+      if (!note) return;
+      playBellNote(PITCH_FREQ[note], 0.45);
+      lightStairButton(idx);
+    }
+
+    function lightStairButton(idx) {
+      var container = document.getElementById('s4-stairs');
+      if (!container) return;
+      var btns = container.querySelectorAll('.stair-btn');
+      btns.forEach(function(b, i) {
+        b.classList.toggle('lit', i === idx);
+      });
+      setTimeout(function() {
+        if (btns[idx]) btns[idx].classList.remove('lit');
+      }, 360);
+    }
+
+    function playContourQuestion() {
+      var q = s4ContourQuestions[s4ContourIdx];
+      if (!q) return;
+      q.seq.forEach(function(stairIdx, step) {
+        setTimeout(function() {
+          playBellNote(PITCH_FREQ[STAIR_NOTES[stairIdx]], 0.35);
+          lightStairButton(stairIdx);
+        }, step * 380);
+      });
+    }
+
+    function answerContour(dir) {
+      var q = s4ContourQuestions[s4ContourIdx];
+      var fb = document.getElementById('s4-melody-feedback');
+      var prog = document.getElementById('s4-melody-progress');
+      if (!q) return;
+
+      if (dir === q.dir) {
+        playSuccessChime();
+        s4ContourIdx++;
+        if (s4ContourIdx >= s4ContourQuestions.length) {
+          if (prog) prog.textContent = `題目：4 / 4 完成`;
+          if (fb) {
+            fb.className = 'feedback-box success';
+            fb.textContent = `🎉 太棒了！你已經完全分辨得出旋律「上行」和「下行」囉！`;
+          }
+          awardStageProgress(3, 's4Melody');
+          s4ContourIdx = 0;
+        } else {
+          if (prog) prog.textContent = `題目：${s4ContourIdx + 1} / 4`;
+          if (fb) {
+            fb.className = 'feedback-box success';
+            fb.textContent = `⭕ 答對了！這段就是「${dir === 'up' ? '上行' : '下行'}」旋律！請按播放聽下一題！`;
+          }
+        }
+      } else {
+        playErrorBoop();
+        if (fb) {
+          fb.className = 'feedback-box error';
+          fb.textContent = `再聽一次並看樓梯燈號喔！越爬越高是上行，往下走是下行！`;
+        }
+      }
+    }
+
+    /* Stage 4B: Percussion */
+    var s4PercActive = false;
+    var s4PercPattern = ['castanet', 'castanet', 'triangle', 'castanet', 'castanet', 'triangle'];
+    var s4PercStep = 0;
+
+    function hitTriangle() {
+      playTriangleSound();
+      checkPercussionHit('triangle');
+    }
+
+    function hitCastanet() {
+      playCastanetSound();
+      checkPercussionHit('castanet');
+    }
+
+    function startNatureEnsemble() {
+      s4PercActive = true;
+      s4PercStep = 0;
+      var scoreEl = document.getElementById('s4-perc-score');
+      if (scoreEl) scoreEl.textContent = `節拍命中：0 / 6`;
+      highlightPercCue();
+    }
+
+    function highlightPercCue() {
+      var padTri = document.getElementById('pad-triangle');
+      var padCas = document.getElementById('pad-castanet');
+      var fb = document.getElementById('s4-perc-feedback');
+      var target = s4PercPattern[s4PercStep];
+
+      if (padTri) padTri.classList.toggle('cue-now', s4PercActive && target === 'triangle');
+      if (padCas) padCas.classList.toggle('cue-now', s4PercActive && target === 'castanet');
+      if (fb && s4PercActive) {
+        fb.className = 'feedback-box warning';
+        fb.textContent = `第 ${s4PercStep + 1} / 6 拍：請點「${target === 'triangle' ? '🔺 三角鐵' : '🪵 響板'}」發亮那一邊！`;
+      }
+    }
+
+    function checkPercussionHit(inst) {
+      if (!s4PercActive) return;
+      var target = s4PercPattern[s4PercStep];
+      var fb = document.getElementById('s4-perc-feedback');
+      var scoreEl = document.getElementById('s4-perc-score');
+
+      if (inst === target) {
+        s4PercStep++;
+        if (scoreEl) scoreEl.textContent = `節拍命中：${s4PercStep} / 6`;
+        if (s4PercStep >= s4PercPattern.length) {
+          s4PercActive = false;
+          highlightPercCue();
+          setTimeout(function() { muteTriangle(true); }, 700);
+          playSuccessChime();
+          if (fb) {
+            fb.className = 'feedback-box success';
+            fb.textContent = `🎉 太精采了！大自然交響樂團大合奏大成功！獲得第四顆音樂寶石！`;
+          }
+          awardStageProgress(3, 's4Perc');
+        } else {
+          highlightPercCue();
+        }
+      } else {
+        playErrorBoop();
+        if (fb) {
+          fb.className = 'feedback-box error';
+          fb.textContent = `哎呀敲錯樂器啦！這拍發亮的是「${target === 'triangle' ? '🔺 三角鐵' : '🪵 響板'}」喔！`;
+        }
+      }
+    }
+
+    /* ==================== STAGE 5 LOGIC (RECORDER) ==================== */
+    var holesClosed = [true, true, false, false]; /* Default Si = 0,1 */
+    var lambSequence = ['Si', 'La', 'Sol', 'La', 'Si', 'Si', 'Si'];
+    var lambStep = 0;
+
+    function getCurrentRecorderNote() {
+      var h0 = holesClosed[0];
+      var h1 = holesClosed[1];
+      var h2 = holesClosed[2];
+      var h3 = holesClosed[3];
+      if (h0 && h1 && !h2 && !h3) return 'Si';
+      if (h0 && h1 && h2 && !h3) return 'La';
+      if (h0 && h1 && h2 && h3) return 'Sol';
+      return null;
+    }
+
+    function renderRecorderUI() {
+      for (var i = 0; i < 4; i++) {
+        var btn = document.getElementById(`btn-hole-${i}`);
+        var svgHole = document.getElementById(`svg-hole-${i}`);
+        var closed = holesClosed[i];
+        if (btn) {
+          btn.classList.toggle('closed', closed);
+          btn.textContent = closed ? `按住` : `放開`;
+        }
+        if (svgHole) {
+          svgHole.setAttribute('fill', closed ? 'var(--primary)' : 'var(--surface-container-low)');
+        }
+      }
+
+      var badge = document.getElementById('s5-current-fingering');
+      var note = getCurrentRecorderNote();
+      if (badge) {
+        if (note === 'Si') badge.textContent = `目前指法：Si 音（0, 1 孔）`;
+        else if (note === 'La') badge.textContent = `目前指法：La 音（0, 1, 2 孔）`;
+        else if (note === 'Sol') badge.textContent = `目前指法：Sol 音（0, 1, 2, 3 孔）`;
+        else badge.textContent = `自訂指法（請試試 Si=0,1 / La=0,1,2 / Sol=0,1,2,3）`;
+      }
+    }
+
+    function toggleHole(idx) {
+      holesClosed[idx] = !holesClosed[idx];
+      playWoodTap(holesClosed[idx]);
+      renderRecorderUI();
+    }
+
+    function presetFingering(noteName) {
+      if (noteName === 'Si') holesClosed = [true, true, false, false];
+      else if (noteName === 'La') holesClosed = [true, true, true, false];
+      else if (noteName === 'Sol') holesClosed = [true, true, true, true];
+      renderRecorderUI();
+      playRecorderTone(PITCH_FREQ[noteName], 0.38);
+    }
+
+    function blowRecorder() {
+      var note = getCurrentRecorderNote();
+      var fb = document.getElementById('s5-feedback');
+      if (!note) {
+        playErrorBoop();
+        if (fb) {
+          fb.className = 'feedback-box warning';
+          fb.textContent = `目前孔洞沒有按好喔！記得背面的 0 孔（大拇指）一定要按住，才能吹出 Si / La / Sol！`;
+        }
+        return;
+      }
+
+      playRecorderTone(PITCH_FREQ[note], 0.45);
+      var targetNote = lambSequence[lambStep];
+
+      if (lambStep < lambSequence.length) {
+        if (note === targetNote) {
+          var doneChip = document.getElementById(`lamb-${lambStep}`);
+          if (doneChip) {
+            doneChip.classList.remove('target');
+            doneChip.classList.add('done');
+          }
+          lambStep++;
+          var walker = document.getElementById('s5-lamb-walker');
+          if (walker) walker.style.left = `${(lambStep / lambSequence.length) * 74}%`;
+
+          if (lambStep >= lambSequence.length) {
+            setTimeout(playSuccessChime, 350);
+            if (fb) {
+              fb.className = 'feedback-box success';
+              fb.textContent = `🎉 恭喜完成《瑪莉有隻小綿羊》直笛演奏！小綿羊成功到達草地，獲得第五顆翡翠綠寶石！`;
+            }
+            awardStageProgress(4, 's5Lamb');
+          } else {
+            var nextChip = document.getElementById(`lamb-${lambStep}`);
+            if (nextChip) nextChip.classList.add('target');
+            var nextNote = lambSequence[lambStep];
+            var tip = nextNote === 'Si' ? `0, 1 孔` : nextNote === 'La' ? `0, 1, 2 孔` : `0, 1, 2, 3 孔`;
+            if (fb) {
+              fb.className = 'feedback-box success';
+              fb.textContent = `⭕ 吹出漂亮的 ${note} 音！下一個音是「${nextNote}」（按 ${tip}），加油！`;
+            }
+          }
+        } else {
+          if (fb) {
+            fb.className = 'feedback-box error';
+            var reqTip = targetNote === 'Si' ? `0, 1 孔` : targetNote === 'La' ? `0, 1, 2 孔` : `0, 1, 2, 3 孔`;
+            fb.textContent = `剛剛吹出來的是 ${note} 音喔！現在樂譜要吹的是「${targetNote} 音」（請按 ${reqTip}）！`;
+          }
+        }
+      }
+    }
+
+    function demoMaryHadALittleLamb() {
+      var times = [0, 0.42, 0.84, 1.26, 1.68, 2.1, 2.52];
+      lambSequence.forEach(function(n, idx) {
+        playRecorderTone(PITCH_FREQ[n], idx === 6 ? 0.65 : 0.36, times[idx]);
+      });
+    }
+
+    function resetLambChallenge() {
+      lambStep = 0;
+      for (var i = 0; i < lambSequence.length; i++) {
+        var chip = document.getElementById(`lamb-${i}`);
+        if (chip) {
+          chip.classList.remove('done', 'target');
+          if (i === 0) chip.classList.add('target');
+        }
+      }
+      var walker = document.getElementById('s5-lamb-walker');
+      if (walker) walker.style.left = `0%`;
+      var fb = document.getElementById('s5-feedback');
+      if (fb) {
+        fb.className = 'feedback-box';
+        fb.textContent = `已重新開始！第 1 個音是 Si（按住 0 孔與 1 孔），確認指法後按下「溫柔吐音（Tu）吹奏！」`;
+      }
+    }
+
+    /* ==================== INITIALIZATION ==================== */
+    async function initApp() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+      renderS2Quiz();
+      renderS3Phrases();
+      renderRecorderUI();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          var saved = await window.notebookAppApi.getAppState();
+          if (saved) {
+            if (Array.isArray(saved.stars) && saved.stars.length === 5) appState.stars = saved.stars;
+            if (Array.isArray(saved.gems) && saved.gems.length === 5) appState.gems = saved.gems;
+            if (typeof saved.studentName === 'string') appState.studentName = saved.studentName;
+            if (Array.isArray(saved.checklist) && saved.checklist.length === 4) appState.checklist = saved.checklist;
+            if (typeof saved.currentStage === 'number') goToStage(saved.currentStage);
+          }
+        } catch (e) {}
+      }
+
+      renderHUD();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
